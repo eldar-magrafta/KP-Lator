@@ -156,16 +156,36 @@ input:hover, .generator-input:hover {
   border-color: var(--border-medium);
 }
 
+/* Fix for dropdown boxes being cut off */
 select.generator-input {
-  height: 56px;
+  /* Increase height to accommodate dropdown options */
+  height: auto;
+  min-height: 56px;
+
+  /* Ensure the dropdown arrow appears correctly */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 20px;
   padding-right: 40px;
+
+  /* Make sure it properly expands when dropdown is shown */
   appearance: none;
   cursor: pointer;
   color: var(--text-main);
+
+  /* Add padding to make text more visible */
+  padding: var(--spacing-double);
+
+  /* Fix z-index to make sure dropdown appears above other elements */
+  position: relative;
+  z-index: 10;
+}
+
+/* Style for dropdown options to ensure they're fully visible */
+select.generator-input option {
+  padding: 10px;
+  font-size: 1em;
 }
 
 select.generator-input option:disabled {
