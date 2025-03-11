@@ -1,0 +1,404 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 28px;
+  background-color: #f5f5f5;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 14px 28px;
+  font-size: 1.2em;
+  background-color: #b4b6b9;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab-button.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.color-mode-toggle {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  display: flex;
+  gap: 15px;
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.radio-label input[type="radio"] {
+  width: auto;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Add this class that will be toggled */
+.no-color label,
+.no-color .preview span,
+.no-color .value {
+  color: black !important;
+}
+
+.main-container {
+  display: flex;
+  gap: 28px;
+  height: calc(100vh - 120px);
+}
+
+.card {
+  background: white;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.input-section {
+  margin-bottom: 28px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 7px 0;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 2.1em;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+#hexInput,
+#meterHexInput,
+#analogHexInput,
+#boxHexInput,
+#onDemandHexInput {
+  font-size: 1.8em;
+}
+
+.generator-input {
+  padding: 10px;
+  margin: 7px 0;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.8em;
+}
+
+.generator-input:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.preview {
+  font-family: monospace;
+  padding: 14px;
+  background: #f8f8f8;
+  border-radius: 6px;
+  margin: 14px 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-size: 1.9em;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 21px;
+  margin-top: 28px;
+}
+
+.timestamp {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 21px;
+  margin-top: 21px;
+  margin-bottom: 0;
+}
+
+.timestamp div {
+  text-align: center;
+}
+
+.value-box {
+  border: 2px solid #ddd;
+  border-radius: 14px;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: #f8f8f8;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.value-box:hover {
+  border-color: #d1d5db;
+  background-color: #f1f5f9;
+}
+
+.value {
+  font-size: 1.75em;
+  width: 100%;
+}
+
+.timestamp .value-box {
+  min-height: 40px;
+  justify-content: center;
+}
+
+select.generator-input,
+select.generator-input option {
+  font-weight: bold;
+}
+
+h1 {
+  color: #333;
+  margin: 0 0 28px 0;
+  font-size: 2.6em;
+}
+
+label {
+  font-weight: bold;
+  color: #666;
+  font-size: 1.6em;
+}
+
+button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.75em;
+  margin-top: 21px;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+.result-section {
+  margin-top: 28px;
+  padding: 10px;
+  background: #f8f8f8;
+}
+
+select.generator-input {
+  height: 56px;
+  font-size: 1.8em;
+}
+
+select.generator-input option:disabled {
+  color: #999 !important;
+  background-color: #f1f1f1;
+}
+
+.minute-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.now-button {
+  background-color: #22c55e;
+  padding: 8px 16px;
+  font-size: 1.2em;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.now-button:hover {
+  background-color: #16a34a;
+}
+
+.minute-container .now-button {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.copy-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 25px;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.copy-button:hover {
+  background-color: #45a049;
+}
+
+.calculations {
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 2px solid #eee;
+}
+
+.calculations .grid {
+  margin-bottom: 0;
+}
+
+.calc-container {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.calc-inputs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.calc-results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.calc-inputs .generator-input {
+  margin: 7px 0;
+}
+
+.calc-group {
+  flex: 1;
+  display: flex;
+  gap: 28px;
+}
+
+.calc-separator {
+  width: 2px;
+  background-color: #eee;
+  align-self: stretch;
+  margin: 0 14px;
+}
+
+.calc-inputs,
+.calc-results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.color-mode-toggle {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 11px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch-label {
+  font-size: 1.6em;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #11ca11;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #666;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.send-button {
+  background-color: #9333ea; /* Purple color */
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.75em;
+  margin-top: 5px;
+}
+
+.send-button:hover {
+  background-color: #7e22ce;
+}
+
+.send-button:disabled {
+  background-color: #d8b4fe;
+  cursor: not-allowed;
+}

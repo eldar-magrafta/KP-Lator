@@ -1,0 +1,1 @@
+web: java -jar target/kp-lator-0.0.1-SNAPSHOT.jar

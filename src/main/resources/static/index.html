@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"><head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KP String Parser & Generator</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<!-- Tab buttons -->
+<div class="tabs">
+    <button class="tab-button active" onclick="showTab('meter')">
+        Meter Reading
+    </button>
+    <button class="tab-button" onclick="showTab('installation')">
+        Installation
+    </button>
+    <button class="tab-button" onclick="showTab('analog')">Analog</button>
+    <button class="tab-button" onclick="showTab('box')">Box</button>
+    <button class="tab-button" onclick="showTab('onDemand')">
+        On-Demand
+    </button>
+</div>
+<div class="color-mode-toggle">
+    <div class="switch-container">
+        <span class="switch-label">Color</span>
+        <label class="switch">
+            <input type="checkbox" id="colorModeToggle" />
+            <span class="slider"></span>
+        </label>
+        <span class="switch-label">B&W</span>
+    </div>
+</div>
+
+<!-- Meter Reading -->
+<div id="meter" class="tab-content active">
+    <div class="main-container">
+        <!-- Meter Parser Section -->
+        <div class="card">
+            <h1>Meter Reading Parser</h1>
+
+            <div class="input-section">
+                <label for="meterHexInput">Hex String Input:</label>
+                <input
+                        type="text"
+                        id="meterHexInput"
+                        value="DC13006694000022220000000000000000000000000000A70B5134007E901010600"
+                />
+                <div id="meterPreview" class="preview"></div>
+            </div>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <div class="value-box">
+                        <div id="meterReceiverNumber" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <div class="value-box">
+                        <div id="meterIndex" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #f97316">Type:</label>
+                    <div class="value-box">
+                        <div id="meterType" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <div class="value-box">
+                        <div id="meterAccount" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Current Reading:</label>
+                    <div class="value-box">
+                        <div id="currentReading" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #a855f7">Data:</label>
+                    <div class="value-box">
+                        <div id="data" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <div class="value-box">
+                        <div id="meterSignalStrength" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <div class="value-box">
+                        <div id="meterRepeater" class="value"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <div class="value-box">
+                        <div id="meterYear" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <div class="value-box">
+                        <div id="meterMonth" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <div class="value-box">
+                        <div id="meterDay" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <div class="value-box">
+                        <div id="meterHour" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Min</label>
+                    <div class="value-box">
+                        <div id="meterMinute" class="value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meter Generator Section -->
+        <div class="card">
+            <h1>Meter Reading Generator</h1>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <input
+                            type="number"
+                            id="genMeterReceiverNumber"
+                            class="generator-input"
+                            min="0"
+                            max="15"
+                            value="1"
+                    />
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <input
+                            type="number"
+                            id="genMeterIndex"
+                            class="generator-input"
+                            min="0"
+                            max="8"
+                            value="3"
+                    />
+                </div>
+                <div>
+                    <label style="color: #f97316">Type:</label>
+                    <select id="genMeterType" class="generator-input">
+                        <option value="0">Absolute value of the meter</option>
+                        <option
+                                value="1"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Received signal strength indication
+                        </option>
+                        <option
+                                value="3"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Previous Reading
+                        </option>
+                        <option
+                                value="4"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Analog
+                        </option>
+                        <option
+                                value="5"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Previous Analog Reading
+                        </option>
+                        <option
+                                value="6"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Serial Number of the Meter (Installation)
+                        </option>
+                        <option
+                                value="7"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Event
+                        </option>
+                        <option
+                                value="E"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            On-Demand
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <input
+                            type="number"
+                            id="genMeterAccount"
+                            class="generator-input"
+                            value="26260"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ef4444">Current Reading:</label>
+                    <input
+                            type="number"
+                            id="genCurrentReading"
+                            class="generator-input"
+                            value="8738"
+                    />
+                </div>
+                <div>
+                    <label style="color: #a855f7">Data:</label>
+                    <input
+                            type="number"
+                            id="genData"
+                            class="generator-input"
+                            value="167"
+                    />
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <input
+                            type="number"
+                            id="genMeterSignalStrength"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="181"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <input
+                            type="number"
+                            id="genMeterRepeater"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="19"
+                    />
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <input
+                            type="number"
+                            id="genMeterYear"
+                            class="generator-input"
+                            min="2000"
+                            max="2050"
+                            value="2025"
+                    />
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <input
+                            type="number"
+                            id="genMeterMonth"
+                            class="generator-input"
+                            min="1"
+                            max="12"
+                            value="1"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <input
+                            type="number"
+                            id="genMeterDay"
+                            class="generator-input"
+                            min="1"
+                            max="31"
+                            value="1"
+                    />
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <input
+                            type="number"
+                            id="genMeterHour"
+                            class="generator-input"
+                            min="0"
+                            max="23"
+                            value="6"
+                    />
+                </div>
+                <div class="minute-container">
+                    <label style="color: #ef4444">Min</label>
+                    <select id="genMeterMinute" class="generator-input">
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                    </select>
+                    <button
+                            onclick="setNearestPastTime('genMeter')"
+                            class="now-button"
+                    >
+                        Now
+                    </button>
+                </div>
+            </div>
+
+            <button onclick="generateMeterHexString()">Generate</button>
+
+            <div class="result-section">
+                <div style="display: flex; align-items: center; gap: 10px">
+                    <label>Generated Hex String:</label>
+                    <button onclick="copyMeterHexString()" class="copy-button">
+                        Copy
+                    </button>
+                </div>
+                <div
+                        style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 15px;
+              "
+                >
+                    <button onclick="sendToMeterQueue()" class="send-button">
+                        Send to Queue "Meter"
+                    </button>
+                </div>
+                <div id="generatedMeterHex" class="preview"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Installation -->
+<div id="installation" class="tab-content">
+    <div class="main-container">
+        <!-- Installation Parser Section -->
+        <div class="card">
+            <h1>Installation String Parser</h1>
+
+            <div class="input-section">
+                <label for="hexInput">Hex String Input:</label>
+                <input
+                        type="text"
+                        id="hexInput"
+                        value="DC146024E3000000000000000000000C04074CAE999999980B2FA4007E80C0C0B2C"
+                />
+                <div id="preview" class="preview"></div>
+            </div>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <div class="value-box">
+                        <div id="receiverNumber" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <div class="value-box">
+                        <div id="index" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #f97316">Type:</label>
+                    <div class="value-box">
+                        <div id="type" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <div class="value-box">
+                        <div id="account" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Factor:</label>
+                    <div class="value-box">
+                        <div id="factor" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #22c55e">Medium:</label>
+                    <div class="value-box">
+                        <div id="medium" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #cc7400">Manufacturer:</label>
+                    <div class="value-box">
+                        <div id="manufacturer" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #a855f7">Meter S/N:</label>
+                    <div class="value-box">
+                        <div id="sn" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <div class="value-box">
+                        <div id="signalStrength" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <div class="value-box">
+                        <div id="repeater" class="value"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <div class="value-box">
+                        <div id="year" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <div class="value-box">
+                        <div id="month" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <div class="value-box">
+                        <div id="day" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <div class="value-box">
+                        <div id="hour" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Min</label>
+                    <div class="value-box">
+                        <div id="minute" class="value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation Generator Section -->
+        <div class="card">
+            <h1>Installation String Generator</h1>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <input
+                            type="number"
+                            id="genReceiverNumber"
+                            class="generator-input"
+                            min="0"
+                            max="15"
+                            value="1"
+                    />
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <input
+                            type="number"
+                            id="genIndex"
+                            class="generator-input"
+                            min="0"
+                            max="8"
+                            value="4"
+                    />
+                </div>
+                <div>
+                    <label style="color: #f97316">Type:</label>
+                    <select id="genType" class="generator-input">
+                        <option
+                                value="0"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Absolute value of the meter
+                        </option>
+
+                        <option
+                                value="1"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Received signal strength indication
+                        </option>
+                        <option
+                                value="3"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Previous Reading
+                        </option>
+                        <option
+                                value="4"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Analog
+                        </option>
+                        <option
+                                value="5"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Previous Analog Reading
+                        </option>
+                        <option value="6">
+                            Serial Number of the Meter (Installation)
+                        </option>
+                        <option
+                                value="7"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            Event
+                        </option>
+                        <option
+                                value="E"
+                                disabled
+                                style="color: #999; background-color: #f1f1f1"
+                        >
+                            On-Demand
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <input
+                            type="number"
+                            id="genAccount"
+                            class="generator-input"
+                            value="9443"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ef4444">Factor:</label>
+                    <select id="genFactor" class="generator-input">
+                        <option value="0.000001">0.000001</option>
+                        <option value="0.00001">0.00001</option>
+                        <option value="0.0001">0.0001</option>
+                        <option value="0.001">0.001</option>
+                        <option value="0.01" selected>0.01</option>
+                        <option value="0.1">0.1</option>
+                        <option value="1">1</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #22c55e">Medium:</label>
+                    <select id="genMedium" class="generator-input">
+                        <option value="07" selected>Water</option>
+                        <option value="09">Security</option>
+                        <option value="0F">Analog</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #cc7400">Manufacturer:</label>
+                    <select id="genManufacturer" class="generator-input">
+                        <option value="1592">Elster Meters</option>
+                        <option value="4CAE" selected>Sensus Meters</option>
+                        <option value="5345">Octave Meters</option>
+                        <option value="2A18">Modbus Siemens MAG6000</option>
+                        <option value="2A1B">Modbus Siemens MAG8000</option>
+                        <option value="1A1F">Modbus ABB WaterMaster</option>
+                        <option value="1A1D">Modbus ABB AquaMaster</option>
+                        <option value="2B0E">Modbus KHRONE IFC300</option>
+                        <option value="7A7B">Pulse Meter</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #a855f7">Meter S/N:</label>
+                    <input
+                            type="number"
+                            id="genSerialNumber"
+                            class="generator-input"
+                            min="0"
+                            max="99999999"
+                            value="99999998"
+                    />
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <input
+                            type="number"
+                            id="genSignalStrength"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="178"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <input
+                            type="number"
+                            id="genRepeater"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="250"
+                    />
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <input
+                            type="number"
+                            id="genYear"
+                            class="generator-input"
+                            min="2000"
+                            max="2050"
+                            value="2024"
+                    />
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <input
+                            type="number"
+                            id="genMonth"
+                            class="generator-input"
+                            min="1"
+                            max="12"
+                            value="12"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <input
+                            type="number"
+                            id="genDay"
+                            class="generator-input"
+                            min="1"
+                            max="31"
+                            value="12"
+                    />
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <input
+                            type="number"
+                            id="genHour"
+                            class="generator-input"
+                            min="0"
+                            max="23"
+                            value="11"
+                    />
+                </div>
+                <div class="minute-container">
+                    <label style="color: #ef4444">Min</label>
+                    <input
+                            type="number"
+                            id="genMinute"
+                            class="generator-input"
+                            min="00"
+                            max="59"
+                            value="44"
+                    />
+                    <button onclick="setNearestPastTime('gen')" class="now-button">
+                        Now
+                    </button>
+                </div>
+            </div>
+
+            <button onclick="generateInstallationHexString()">Generate</button>
+
+            <div class="result-section">
+                <div style="display: flex; align-items: center; gap: 10px">
+                    <label>Generated Hex String:</label>
+                    <button onclick="copyInstallationHexString()" class="copy-button">
+                        Copy
+                    </button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                    <button onclick="sendToInstallationQueue()" class="send-button installation-send-button">
+                        Send to Queue "Installation"
+                    </button>
+                </div>
+                <div id="generatedInstallationHex" class="preview"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Analog Reading -->
+<div id="analog" class="tab-content">
+    <div class="main-container">
+        <!-- Analog Parser Section -->
+        <div class="card">
+            <h1>Analog Reading Parser</h1>
+
+            <div class="input-section">
+                <label for="analogHexInput">Hex String Input:</label>
+                <input
+                        type="text"
+                        id="analogHexInput"
+                        value="DC114046D2195194FFF19218F18D18C18C000000000000000C49A3707E9011A0A00"
+                />
+                <div id="analogPreview" class="preview"></div>
+            </div>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <div class="value-box">
+                        <div id="analogReceiverNumber" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <div class="value-box">
+                        <div id="analogIndex" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #f97316">Type:</label>
+                    <div class="value-box">
+                        <div id="analogType" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <div class="value-box">
+                        <div id="analogAccount" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Analog Sample:</label>
+                    <div class="value-box">
+                        <div id="analogSample" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <div class="value-box">
+                        <div id="analogSignalStrength" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <div class="value-box">
+                        <div id="analogRepeater" class="value"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <div class="value-box">
+                        <div id="analogYear" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <div class="value-box">
+                        <div id="analogMonth" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <div class="value-box">
+                        <div id="analogDay" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <div class="value-box">
+                        <div id="analogHour" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Min</label>
+                    <div class="value-box">
+                        <div id="analogMinute" class="value"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calculations">
+                <div class="calc-container">
+                    <!-- Pressure Section -->
+                    <div class="calc-group">
+                        <div class="calc-inputs">
+                            <div>
+                                <label style="color: black; background-color: yellow"
+                                >Pressure max scale:</label
+                                >
+                                <input
+                                        type="number"
+                                        id="pressureMaxScale"
+                                        class="generator-input"
+                                        min="1"
+                                        max="555"
+                                        value="60"
+                                        oninput="calculateResults()"
+                                />
+                            </div>
+                        </div>
+                        <div class="calc-results">
+                            <div>
+                                <label style="color: black; background-color: yellow"
+                                >Pressure [mH2O]:</label
+                                >
+                                <div class="value-box">
+                                    <div id="pressureResult" class="value">0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Separator Line -->
+                    <div class="calc-separator"></div>
+
+                    <!-- Temperature Section -->
+                    <div class="calc-group">
+                        <div class="calc-inputs">
+                            <div>
+                                <label style="color: black; background-color: red"
+                                >Temp min scale:</label
+                                >
+                                <input
+                                        type="number"
+                                        id="tempMinScale"
+                                        class="generator-input"
+                                        min="-100"
+                                        max="100"
+                                        value="-20"
+                                        oninput="calculateResults()"
+                                />
+                            </div>
+                            <div>
+                                <label style="color: black; background-color: red"
+                                >Temp max scale:</label
+                                >
+                                <input
+                                        type="number"
+                                        id="tempMaxScale"
+                                        class="generator-input"
+                                        min="-100"
+                                        max="120"
+                                        value="120"
+                                        oninput="calculateResults()"
+                                />
+                            </div>
+                        </div>
+                        <div class="calc-results">
+                            <div>
+                                <label style="color: black; background-color: red"
+                                >Temp [C°]:</label
+                                >
+                                <div class="value-box">
+                                    <div id="tempResult" class="value">0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analog Generator Section -->
+        <div class="card">
+            <h1>Analog Reading Generator</h1>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <input
+                            type="number"
+                            id="genAnalogReceiverNumber"
+                            class="generator-input"
+                            min="0"
+                            max="15"
+                            value="1"
+                    />
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <input
+                            type="number"
+                            id="genAnalogIndex"
+                            class="generator-input"
+                            min="0"
+                            max="8"
+                            value="1"
+                    />
+                </div>
+                <div>
+                    <label style="color: #f97316">Type:</label>
+                    <select id="genAnalogType" class="generator-input">
+                        <option value="4">Analog</option>
+                        <option value="5">Previous Analog Reading</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <input
+                            type="number"
+                            id="genAnalogAccount"
+                            class="generator-input"
+                            value="18130"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ef4444">Analog Sample:</label>
+                    <input
+                            type="number"
+                            id="genAnalogSample"
+                            class="generator-input"
+                            value="405"
+                    />
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <input
+                            type="number"
+                            id="genAnalogSignalStrength"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="196"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <input
+                            type="number"
+                            id="genAnalogRepeater"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="154"
+                    />
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <input
+                            type="number"
+                            id="genAnalogYear"
+                            class="generator-input"
+                            min="2000"
+                            max="2050"
+                            value="2025"
+                    />
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <input
+                            type="number"
+                            id="genAnalogMonth"
+                            class="generator-input"
+                            min="1"
+                            max="12"
+                            value="1"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <input
+                            type="number"
+                            id="genAnalogDay"
+                            class="generator-input"
+                            min="1"
+                            max="31"
+                            value="26"
+                    />
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <input
+                            type="number"
+                            id="genAnalogHour"
+                            class="generator-input"
+                            min="0"
+                            max="23"
+                            value="10"
+                    />
+                </div>
+                <div class="minute-container">
+                    <label style="color: #ef4444">Min</label>
+                    <input
+                            type="number"
+                            id="genAnalogMinute"
+                            class="generator-input"
+                            min="00"
+                            max="59"
+                            value="00"
+                    />
+                    <button
+                            onclick="setNearestPastTime('genAnalog')"
+                            class="now-button"
+                    >
+                        Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="calculations">
+                <div class="calc-container">
+                    <!-- Pressure Section -->
+                    <div class="calc-group">
+                        <div class="calc-inputs">
+                            <div>
+                                <label style="color: black; background-color: yellow"
+                                >Pressure max scale:</label
+                                >
+                                <input
+                                        type="number"
+                                        id="genPressureMaxScale"
+                                        class="generator-input"
+                                        min="1"
+                                        max="555"
+                                        value="60"
+                                />
+                            </div>
+                        </div>
+                        <div class="calc-results">
+                            <div>
+                                <label style="color: black; background-color: yellow"
+                                >Pressure [mH2O]:</label
+                                >
+                                <div class="value-box">
+                                    <div id="genPressureResult" class="value">NaN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Separator Line -->
+                    <div class="calc-separator"></div>
+
+                    <!-- Temperature Section -->
+                    <div class="calc-group">
+                        <div class="calc-inputs">
+                            <div>
+                                <label style="color: black; background-color: red"
+                                >Temp min scale:</label
+                                >
+                                <input
+                                        type="number"
+                                        id="genTempMinScale"
+                                        class="generator-input"
+                                        min="-100"
+                                        max="100"
+                                        value="-20"
+                                />
+                            </div>
+                            <div>
+                                <label style="color: black; background-color: red"
+                                >Temp max scale:</label
+                                >
+                                <input
+                                        type="number"
+                                        id="genTempMaxScale"
+                                        class="generator-input"
+                                        min="-100"
+                                        max="120"
+                                        value="120"
+                                />
+                            </div>
+                        </div>
+                        <div class="calc-results">
+                            <div>
+                                <label style="color: black; background-color: red"
+                                >Temp [C°]:</label
+                                >
+                                <div class="value-box">
+                                    <div id="genTempResult" class="value">NaN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="generateAnalogHexString()">Generate</button>
+
+            <!-- In the Analog tab, within the result-section div -->
+            <div class="result-section">
+                <div style="display: flex; align-items: center; gap: 10px">
+                    <label>Generated Hex String:</label>
+                    <button onclick="copyAnalogHexString()" class="copy-button">
+                        Copy
+                    </button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                    <button onclick="sendToAnalogQueue()" class="send-button analog-send-button">
+                        Send to Queue "Analog"
+                    </button>
+                </div>
+                <div id="generatedAnalogHex" class="preview"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Box -->
+<div id="box" class="tab-content">
+    <div class="main-container">
+        <!-- Box Parser Section -->
+        <div class="card">
+            <h1>Box Parser</h1>
+
+            <div class="input-section">
+                <label for="boxHexInput">Hex String Input:</label>
+                <input
+                        type="text"
+                        id="boxHexInput"
+                        value="DC1070C369000000000000000000000000000000000000210DE9A3407E80A090F04"
+                />
+                <div id="boxPreview" class="preview"></div>
+            </div>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <div class="value-box">
+                        <div id="boxIndex" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <div class="value-box">
+                        <div id="boxAccount" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #f97316">Event Type:</label>
+                    <div class="value-box">
+                        <div id="boxEventType" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <div class="value-box">
+                        <div id="boxSignalStrength" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <div class="value-box">
+                        <div id="boxRepeater" class="value"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <div class="value-box">
+                        <div id="boxYear" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <div class="value-box">
+                        <div id="boxMonth" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <div class="value-box">
+                        <div id="boxDay" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <div class="value-box">
+                        <div id="boxHour" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Min</label>
+                    <div class="value-box">
+                        <div id="boxMinute" class="value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Box Generator Section -->
+        <div class="card">
+            <h1>Box Generator</h1>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <input
+                            type="number"
+                            id="genBoxAccount"
+                            class="generator-input"
+                            value="50025"
+                    />
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <input
+                            type="number"
+                            id="genBoxIndex"
+                            class="generator-input"
+                            min="0"
+                            max="8"
+                            value="0"
+                    />
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <input
+                            type="number"
+                            id="genBoxSignalStrength"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="222"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <input
+                            type="number"
+                            id="genBoxRepeater"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="154"
+                    />
+                </div>
+                <div>
+                    <label style="color: #f97316">Event Type:</label>
+                    <select id="genBoxEventType" class="generator-input">
+                        <option value="11">Door Opened</option>
+                        <option value="21" selected>Door Closed</option>
+                        <option value="12">Magnet</option>
+                        <option value="00-testEvent">Test Event</option>
+                        <option value="00-install">Install</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <input
+                            type="number"
+                            id="genBoxYear"
+                            class="generator-input"
+                            min="2000"
+                            max="2050"
+                            value="2024"
+                    />
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <input
+                            type="number"
+                            id="genBoxMonth"
+                            class="generator-input"
+                            min="1"
+                            max="12"
+                            value="10"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <input
+                            type="number"
+                            id="genBoxDay"
+                            class="generator-input"
+                            min="1"
+                            max="31"
+                            value="9"
+                    />
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <input
+                            type="number"
+                            id="genBoxHour"
+                            class="generator-input"
+                            min="0"
+                            max="23"
+                            value="15"
+                    />
+                </div>
+                <div class="minute-container">
+                    <label style="color: #ef4444">Min</label>
+                    <input
+                            type="number"
+                            id="genBoxMinute"
+                            class="generator-input"
+                            min="00"
+                            max="59"
+                            value="4"
+                    />
+                    <button onclick="setNearestPastTime('genBox')" class="now-button">
+                        Now
+                    </button>
+                </div>
+            </div>
+
+            <button onclick="generateBoxHexString()">Generate</button>
+
+            <div class="result-section">
+                <div style="display: flex; align-items: center; gap: 10px">
+                    <label>Generated Hex String:</label>
+                    <button onclick="copyBoxHexString()" class="copy-button">
+                        Copy
+                    </button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                    <button onclick="sendToBoxQueue()" class="send-button box-send-button">
+                        Send to Queue "Box"
+                    </button>
+                </div>
+                <div id="generatedBoxHex" class="preview"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- On Demand -->
+<div id="onDemand" class="tab-content">
+    <div class="main-container">
+        <!-- On-Demand Parser Section -->
+        <div class="card">
+            <h1>On-Demand Parser</h1>
+
+            <div class="input-section">
+                <label for="onDemandHexInput">Hex String Input:</label>
+                <input
+                        type="text"
+                        id="onDemandHexInput"
+                        value="2305FA79A09230A0D"
+                />
+                <div id="onDemandPreview" class="preview"></div>
+            </div>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <div class="value-box">
+                        <div id="onDemandIndex" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <div class="value-box">
+                        <div id="onDemandAccount" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <div class="value-box">
+                        <div id="onDemandRepeater" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #f97316">Request/Response:</label>
+                    <div class="value-box">
+                        <div id="onDemandRequestType" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #22c55e">On-Demand Type:</label>
+                    <div class="value-box">
+                        <div id="onDemandOnDemandType" class="value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- On-Demand Generator Section -->
+        <div class="card">
+            <h1>On-Demand Generator</h1>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #22c55e">Index:</label>
+                    <input
+                            type="number"
+                            id="genOnDemandIndex"
+                            class="generator-input"
+                            min="0"
+                            max="8"
+                            value="3"
+                    />
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <input
+                            type="number"
+                            id="genOnDemandAccount"
+                            class="generator-input"
+                            value="24487"
+                    />
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <input
+                            type="number"
+                            id="genOnDemandRepeater"
+                            class="generator-input"
+                            min="0"
+                            max="255"
+                            value="154"
+                    />
+                </div>
+                <div>
+                    <label style="color: #f97316">Request/Response:</label>
+                    <select id="genOnDemandRequestType" class="generator-input">
+                        <option value="0">Request</option>
+                        <option value="1">
+                            Response was received by Automation Software
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #22c55e">On-Demand Type:</label>
+                    <select id="genOnDemandOnDemandType" class="generator-input">
+                        <option value="0">Request for On-Demand</option>
+                        <option value="1">
+                            Response to On-Demand that On-Demand message was received by
+                            Automation Software
+                        </option>
+                        <option value="2">Request for Previous reading</option>
+                        <option value="6">Transmit every 4 hours</option>
+                        <option value="7">Transmit every 1 hour</option>
+                        <option value="9" selected>Diameter download</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="generateOnDemandHexString()">Generate</button>
+
+            <div class="result-section">
+                <div style="display: flex; align-items: center; gap: 10px">
+                    <label>Generated Hex String:</label>
+                    <button onclick="copyOnDemandHexString()" class="copy-button">
+                        Copy
+                    </button>
+                </div>
+                <div id="generatedOnDemandHex" class="preview"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/scripts.js"></script>
+</body>
+</html>
