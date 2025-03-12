@@ -1121,6 +1121,17 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.remove("no-color");
       }
     });
+
+    const darkModePreference = localStorage.getItem("darkMode");
+    const darkModeToggle = document.getElementById("displayModeToggle");
+
+    if (darkModePreference === "enabled") {
+      document.body.classList.add("dark-mode");
+      darkModeToggle.checked = true;
+    }
+
+    // Add event listener for dark mode toggle
+    darkModeToggle.addEventListener("change", toggleDarkMode);
 });
 
 function sendToMeterQueue() {
@@ -1258,4 +1269,17 @@ function sendToBoxQueue() {
         sendButton.textContent = 'Send to ActiveMQ Queue "box"';
       }, 2000);
     });
+}
+
+function toggleDarkMode(event) {
+  const body = document.body;
+  if (event.target.checked) {
+    body.classList.add("dark-mode");
+    // Save preference to localStorage
+    localStorage.setItem("darkMode", "enabled");
+  } else {
+    body.classList.remove("dark-mode");
+    // Save preference to localStorage
+    localStorage.setItem("darkMode", "disabled");
+  }
 }
