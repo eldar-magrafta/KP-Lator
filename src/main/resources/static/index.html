@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"><head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>KP String Parser & Generator</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
+
 <body>
 <!-- Tabs buttons -->
 <div class="tabs">
@@ -25,7 +28,7 @@
         <div class="switch-container">
             <span class="switch-label">Light</span>
             <label class="switch">
-                <input type="checkbox" id="displayModeToggle" />
+                <input type="checkbox" id="displayModeToggle"/>
                 <span class="slider"></span>
             </label>
             <span class="switch-label">Dark</span>
@@ -36,7 +39,7 @@
         <div class="switch-container">
             <span class="switch-label">Color</span>
             <label class="switch">
-                <input type="checkbox" id="colorModeToggle" />
+                <input type="checkbox" id="colorModeToggle"/>
                 <span class="slider"></span>
             </label>
             <span class="switch-label">B&W</span>
@@ -53,11 +56,8 @@
 
             <div class="input-section">
                 <label for="meterHexInput">Hex String Input:</label>
-                <input
-                        type="text"
-                        id="meterHexInput"
-                        value="DC13006694000022220000000000000000000000000000A70B5134007E901010600"
-                />
+                <input type="text" id="meterHexInput"
+                       value="DC13006694000022220000000000000000000000000000A70B5134007E901010600"/>
                 <div id="meterPreview" class="preview"></div>
             </div>
 
@@ -144,6 +144,10 @@
                     </div>
                 </div>
             </div>
+
+            <button onclick="copyMeterToGenerator()" class="copy-to-gen-button copy-to-gen-button-meter">
+                Copy to Generator →
+            </button>
         </div>
 
         <!-- Meter Generator Section -->
@@ -153,176 +157,81 @@
             <div class="grid">
                 <div>
                     <label style="color: #ff00ff">Receiver Number:</label>
-                    <input
-                            type="number"
-                            id="genMeterReceiverNumber"
-                            class="generator-input"
-                            min="0"
-                            max="15"
-                            value="1"
-                    />
+                    <input type="number" id="genMeterReceiverNumber" class="generator-input" min="0" max="15"
+                           value="1"/>
                 </div>
                 <div>
                     <label style="color: #22c55e">Index:</label>
-                    <input
-                            type="number"
-                            id="genMeterIndex"
-                            class="generator-input"
-                            min="0"
-                            max="8"
-                            value="3"
-                    />
+                    <input type="number" id="genMeterIndex" class="generator-input" min="0" max="8" value="3"/>
                 </div>
                 <div>
                     <label style="color: #f97316">Type:</label>
                     <select id="genMeterType" class="generator-input">
                         <option value="0">Absolute value of the meter</option>
-                        <option
-                                value="1"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="1" disabled style="color: #999; background-color: #f1f1f1">
                             Received signal strength indication
                         </option>
-                        <option
-                                value="3"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="3" disabled style="color: #999; background-color: #f1f1f1">
                             Previous Reading
                         </option>
-                        <option
-                                value="4"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="4" disabled style="color: #999; background-color: #f1f1f1">
                             Analog
                         </option>
-                        <option
-                                value="5"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="5" disabled style="color: #999; background-color: #f1f1f1">
                             Previous Analog Reading
                         </option>
-                        <option
-                                value="6"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="6" disabled style="color: #999; background-color: #f1f1f1">
                             Serial Number of the Meter (Installation)
                         </option>
-                        <option
-                                value="7"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="7" disabled style="color: #999; background-color: #f1f1f1">
                             Event
                         </option>
-                        <option
-                                value="E"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="E" disabled style="color: #999; background-color: #f1f1f1">
                             On-Demand
                         </option>
                     </select>
                 </div>
                 <div>
                     <label style="color: #3b82f6">Account (KP id):</label>
-                    <input
-                            type="number"
-                            id="genMeterAccount"
-                            class="generator-input"
-                            value="26260"
-                    />
+                    <input type="number" id="genMeterAccount" class="generator-input" value="26260"/>
                 </div>
                 <div>
                     <label style="color: #ef4444">Current Reading:</label>
-                    <input
-                            type="number"
-                            id="genCurrentReading"
-                            class="generator-input"
-                            value="8738"
-                    />
+                    <input type="number" id="genCurrentReading" class="generator-input" value="8738"/>
                 </div>
                 <div>
                     <label style="color: #a855f7">Data:</label>
-                    <input
-                            type="number"
-                            id="genData"
-                            class="generator-input"
-                            value="167"
-                    />
+                    <input type="number" id="genData" class="generator-input" value="167"/>
                 </div>
                 <div>
                     <label style="color: #d8c724">Signal Strength:</label>
-                    <input
-                            type="number"
-                            id="genMeterSignalStrength"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="181"
-                    />
+                    <input type="number" id="genMeterSignalStrength" class="generator-input" min="0" max="255"
+                           value="181"/>
                 </div>
                 <div>
                     <label style="color: #ff00ff">Repeater #:</label>
-                    <input
-                            type="number"
-                            id="genMeterRepeater"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="19"
-                    />
+                    <input type="number" id="genMeterRepeater" class="generator-input" min="0" max="255"
+                           value="19"/>
                 </div>
             </div>
 
             <div class="timestamp">
                 <div>
                     <label style="color: #40ff00">Year</label>
-                    <input
-                            type="number"
-                            id="genMeterYear"
-                            class="generator-input"
-                            min="2000"
-                            max="2050"
-                            value="2025"
-                    />
+                    <input type="number" id="genMeterYear" class="generator-input" min="2000" max="2050"
+                           value="2025"/>
                 </div>
                 <div>
                     <label style="color: #0ea5e9">Month</label>
-                    <input
-                            type="number"
-                            id="genMeterMonth"
-                            class="generator-input"
-                            min="1"
-                            max="12"
-                            value="1"
-                    />
+                    <input type="number" id="genMeterMonth" class="generator-input" min="1" max="12" value="1"/>
                 </div>
                 <div>
                     <label style="color: #ca8a04">Day</label>
-                    <input
-                            type="number"
-                            id="genMeterDay"
-                            class="generator-input"
-                            min="1"
-                            max="31"
-                            value="1"
-                    />
+                    <input type="number" id="genMeterDay" class="generator-input" min="1" max="31" value="1"/>
                 </div>
                 <div>
                     <label style="color: #15803d">Hour</label>
-                    <input
-                            type="number"
-                            id="genMeterHour"
-                            class="generator-input"
-                            min="0"
-                            max="23"
-                            value="6"
-                    />
+                    <input type="number" id="genMeterHour" class="generator-input" min="0" max="23" value="6"/>
                 </div>
                 <div class="minute-container">
                     <label style="color: #ef4444">Min</label>
@@ -332,10 +241,7 @@
                         <option value="30">30</option>
                         <option value="45">45</option>
                     </select>
-                    <button
-                            onclick="setNearestPastTime('genMeter')"
-                            class="now-button"
-                    >
+                    <button onclick="setNearestPastTime('genMeter')" class="now-button">
                         Now
                     </button>
                 </div>
@@ -350,14 +256,12 @@
                         Copy
                     </button>
                 </div>
-                <div
-                        style="
+                <div style="
                 display: flex;
                 align-items: center;
                 gap: 10px;
                 margin-top: 15px;
-              "
-                >
+              ">
                     <button onclick="sendToMeterQueue()" class="send-button">
                         Send to Queue "Meter"
                     </button>
@@ -377,11 +281,8 @@
 
             <div class="input-section">
                 <label for="hexInput">Hex String Input:</label>
-                <input
-                        type="text"
-                        id="hexInput"
-                        value="DC146024E3000000000000000000000C04074CAE999999980B2FA4007E80C0C0B2C"
-                />
+                <input type="text" id="hexInput"
+                       value="DC146024E3000000000000000000000C04074CAE999999980B2FA4007E80C0C0B2C"/>
                 <div id="preview" class="preview"></div>
             </div>
 
@@ -480,6 +381,11 @@
                     </div>
                 </div>
             </div>
+
+            <button onclick="copyInstallationToGenerator()"
+                    class="copy-to-gen-button copy-to-gen-button-installation">
+                Copy to Generator →
+            </button>
         </div>
 
         <!-- Installation Generator Section -->
@@ -489,92 +395,46 @@
             <div class="grid">
                 <div>
                     <label style="color: #ff00ff">Receiver Number:</label>
-                    <input
-                            type="number"
-                            id="genReceiverNumber"
-                            class="generator-input"
-                            min="0"
-                            max="15"
-                            value="1"
-                    />
+                    <input type="number" id="genReceiverNumber" class="generator-input" min="0" max="15"
+                           value="1"/>
                 </div>
                 <div>
                     <label style="color: #22c55e">Index:</label>
-                    <input
-                            type="number"
-                            id="genIndex"
-                            class="generator-input"
-                            min="0"
-                            max="8"
-                            value="4"
-                    />
+                    <input type="number" id="genIndex" class="generator-input" min="0" max="8" value="4"/>
                 </div>
                 <div>
                     <label style="color: #f97316">Type:</label>
                     <select id="genType" class="generator-input">
-                        <option
-                                value="0"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="0" disabled style="color: #999; background-color: #f1f1f1">
                             Absolute value of the meter
                         </option>
 
-                        <option
-                                value="1"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="1" disabled style="color: #999; background-color: #f1f1f1">
                             Received signal strength indication
                         </option>
-                        <option
-                                value="3"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="3" disabled style="color: #999; background-color: #f1f1f1">
                             Previous Reading
                         </option>
-                        <option
-                                value="4"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="4" disabled style="color: #999; background-color: #f1f1f1">
                             Analog
                         </option>
-                        <option
-                                value="5"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="5" disabled style="color: #999; background-color: #f1f1f1">
                             Previous Analog Reading
                         </option>
                         <option value="6">
                             Serial Number of the Meter (Installation)
                         </option>
-                        <option
-                                value="7"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="7" disabled style="color: #999; background-color: #f1f1f1">
                             Event
                         </option>
-                        <option
-                                value="E"
-                                disabled
-                                style="color: #999; background-color: #f1f1f1"
-                        >
+                        <option value="E" disabled style="color: #999; background-color: #f1f1f1">
                             On-Demand
                         </option>
                     </select>
                 </div>
                 <div>
                     <label style="color: #3b82f6">Account (KP id):</label>
-                    <input
-                            type="number"
-                            id="genAccount"
-                            class="generator-input"
-                            value="9443"
-                    />
+                    <input type="number" id="genAccount" class="generator-input" value="9443"/>
                 </div>
                 <div>
                     <label style="color: #ef4444">Factor:</label>
@@ -613,94 +473,40 @@
                 </div>
                 <div>
                     <label style="color: #a855f7">Meter S/N:</label>
-                    <input
-                            type="number"
-                            id="genSerialNumber"
-                            class="generator-input"
-                            min="0"
-                            max="99999999"
-                            value="99999998"
-                    />
+                    <input type="number" id="genSerialNumber" class="generator-input" min="0" max="99999999"
+                           value="99999998"/>
                 </div>
                 <div>
                     <label style="color: #d8c724">Signal Strength:</label>
-                    <input
-                            type="number"
-                            id="genSignalStrength"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="178"
-                    />
+                    <input type="number" id="genSignalStrength" class="generator-input" min="0" max="255"
+                           value="178"/>
                 </div>
                 <div>
                     <label style="color: #ff00ff">Repeater #:</label>
-                    <input
-                            type="number"
-                            id="genRepeater"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="250"
-                    />
+                    <input type="number" id="genRepeater" class="generator-input" min="0" max="255" value="250"/>
                 </div>
             </div>
 
             <div class="timestamp">
                 <div>
                     <label style="color: #40ff00">Year</label>
-                    <input
-                            type="number"
-                            id="genYear"
-                            class="generator-input"
-                            min="2000"
-                            max="2050"
-                            value="2024"
-                    />
+                    <input type="number" id="genYear" class="generator-input" min="2000" max="2050" value="2024"/>
                 </div>
                 <div>
                     <label style="color: #0ea5e9">Month</label>
-                    <input
-                            type="number"
-                            id="genMonth"
-                            class="generator-input"
-                            min="1"
-                            max="12"
-                            value="12"
-                    />
+                    <input type="number" id="genMonth" class="generator-input" min="1" max="12" value="12"/>
                 </div>
                 <div>
                     <label style="color: #ca8a04">Day</label>
-                    <input
-                            type="number"
-                            id="genDay"
-                            class="generator-input"
-                            min="1"
-                            max="31"
-                            value="12"
-                    />
+                    <input type="number" id="genDay" class="generator-input" min="1" max="31" value="12"/>
                 </div>
                 <div>
                     <label style="color: #15803d">Hour</label>
-                    <input
-                            type="number"
-                            id="genHour"
-                            class="generator-input"
-                            min="0"
-                            max="23"
-                            value="11"
-                    />
+                    <input type="number" id="genHour" class="generator-input" min="0" max="23" value="11"/>
                 </div>
                 <div class="minute-container">
                     <label style="color: #ef4444">Min</label>
-                    <input
-                            type="number"
-                            id="genMinute"
-                            class="generator-input"
-                            min="00"
-                            max="59"
-                            value="44"
-                    />
+                    <input type="number" id="genMinute" class="generator-input" min="00" max="59" value="44"/>
                     <button onclick="setNearestPastTime('gen')" class="now-button">
                         Now
                     </button>
@@ -736,11 +542,8 @@
 
             <div class="input-section">
                 <label for="analogHexInput">Hex String Input:</label>
-                <input
-                        type="text"
-                        id="analogHexInput"
-                        value="DC114046D2195194FFF19218F18D18C18C000000000000000C49A3707E9011A0A00"
-                />
+                <input type="text" id="analogHexInput"
+                       value="DC114046D2195194FFF19218F18D18C18C000000000000000C49A3707E9011A0A00"/>
                 <div id="analogPreview" class="preview"></div>
             </div>
 
@@ -828,25 +631,14 @@
                     <div class="calc-group">
                         <div class="calc-inputs">
                             <div>
-                                <label style="color: black; background-color: yellow"
-                                >Pressure max scale:</label
-                                >
-                                <input
-                                        type="number"
-                                        id="pressureMaxScale"
-                                        class="generator-input"
-                                        min="1"
-                                        max="555"
-                                        value="60"
-                                        oninput="calculateResults()"
-                                />
+                                <label style="color: black; background-color: yellow">Pressure max scale:</label>
+                                <input type="number" id="pressureMaxScale" class="generator-input" min="1" max="555"
+                                       value="60" oninput="calculateResults()"/>
                             </div>
                         </div>
                         <div class="calc-results">
                             <div>
-                                <label style="color: black; background-color: yellow"
-                                >Pressure [mH2O]:</label
-                                >
+                                <label style="color: black; background-color: yellow">Pressure [mH2O]:</label>
                                 <div class="value-box">
                                     <div id="pressureResult" class="value">0.00</div>
                                 </div>
@@ -861,39 +653,19 @@
                     <div class="calc-group">
                         <div class="calc-inputs">
                             <div>
-                                <label style="color: black; background-color: red"
-                                >Temp min scale:</label
-                                >
-                                <input
-                                        type="number"
-                                        id="tempMinScale"
-                                        class="generator-input"
-                                        min="-100"
-                                        max="100"
-                                        value="-20"
-                                        oninput="calculateResults()"
-                                />
+                                <label style="color: black; background-color: red">Temp min scale:</label>
+                                <input type="number" id="tempMinScale" class="generator-input" min="-100" max="100"
+                                       value="-20" oninput="calculateResults()"/>
                             </div>
                             <div>
-                                <label style="color: black; background-color: red"
-                                >Temp max scale:</label
-                                >
-                                <input
-                                        type="number"
-                                        id="tempMaxScale"
-                                        class="generator-input"
-                                        min="-100"
-                                        max="120"
-                                        value="120"
-                                        oninput="calculateResults()"
-                                />
+                                <label style="color: black; background-color: red">Temp max scale:</label>
+                                <input type="number" id="tempMaxScale" class="generator-input" min="-100" max="120"
+                                       value="120" oninput="calculateResults()"/>
                             </div>
                         </div>
                         <div class="calc-results">
                             <div>
-                                <label style="color: black; background-color: red"
-                                >Temp [C°]:</label
-                                >
+                                <label style="color: black; background-color: red">Temp [C°]:</label>
                                 <div class="value-box">
                                     <div id="tempResult" class="value">0.00</div>
                                 </div>
@@ -902,6 +674,9 @@
                     </div>
                 </div>
             </div>
+            <button onclick="copyAnalogToGenerator()" class="copy-to-gen-button copy-to-gen-button-analog">
+                Copy to Generator →
+            </button>
         </div>
 
         <!-- Analog Generator Section -->
@@ -911,25 +686,12 @@
             <div class="grid">
                 <div>
                     <label style="color: #ff00ff">Receiver Number:</label>
-                    <input
-                            type="number"
-                            id="genAnalogReceiverNumber"
-                            class="generator-input"
-                            min="0"
-                            max="15"
-                            value="1"
-                    />
+                    <input type="number" id="genAnalogReceiverNumber" class="generator-input" min="0" max="15"
+                           value="1"/>
                 </div>
                 <div>
                     <label style="color: #22c55e">Index:</label>
-                    <input
-                            type="number"
-                            id="genAnalogIndex"
-                            class="generator-input"
-                            min="0"
-                            max="8"
-                            value="1"
-                    />
+                    <input type="number" id="genAnalogIndex" class="generator-input" min="0" max="8" value="1"/>
                 </div>
                 <div>
                     <label style="color: #f97316">Type:</label>
@@ -940,105 +702,47 @@
                 </div>
                 <div>
                     <label style="color: #3b82f6">Account (KP id):</label>
-                    <input
-                            type="number"
-                            id="genAnalogAccount"
-                            class="generator-input"
-                            value="18130"
-                    />
+                    <input type="number" id="genAnalogAccount" class="generator-input" value="18130"/>
                 </div>
                 <div>
                     <label style="color: #ef4444">Analog Sample:</label>
-                    <input
-                            type="number"
-                            id="genAnalogSample"
-                            class="generator-input"
-                            value="405"
-                    />
+                    <input type="number" id="genAnalogSample" class="generator-input" value="405"/>
                 </div>
                 <div>
                     <label style="color: #d8c724">Signal Strength:</label>
-                    <input
-                            type="number"
-                            id="genAnalogSignalStrength"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="196"
-                    />
+                    <input type="number" id="genAnalogSignalStrength" class="generator-input" min="0" max="255"
+                           value="196"/>
                 </div>
                 <div>
                     <label style="color: #ff00ff">Repeater #:</label>
-                    <input
-                            type="number"
-                            id="genAnalogRepeater"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="154"
-                    />
+                    <input type="number" id="genAnalogRepeater" class="generator-input" min="0" max="255"
+                           value="154"/>
                 </div>
             </div>
 
             <div class="timestamp">
                 <div>
                     <label style="color: #40ff00">Year</label>
-                    <input
-                            type="number"
-                            id="genAnalogYear"
-                            class="generator-input"
-                            min="2000"
-                            max="2050"
-                            value="2025"
-                    />
+                    <input type="number" id="genAnalogYear" class="generator-input" min="2000" max="2050"
+                           value="2025"/>
                 </div>
                 <div>
                     <label style="color: #0ea5e9">Month</label>
-                    <input
-                            type="number"
-                            id="genAnalogMonth"
-                            class="generator-input"
-                            min="1"
-                            max="12"
-                            value="1"
-                    />
+                    <input type="number" id="genAnalogMonth" class="generator-input" min="1" max="12" value="1"/>
                 </div>
                 <div>
                     <label style="color: #ca8a04">Day</label>
-                    <input
-                            type="number"
-                            id="genAnalogDay"
-                            class="generator-input"
-                            min="1"
-                            max="31"
-                            value="26"
-                    />
+                    <input type="number" id="genAnalogDay" class="generator-input" min="1" max="31" value="26"/>
                 </div>
                 <div>
                     <label style="color: #15803d">Hour</label>
-                    <input
-                            type="number"
-                            id="genAnalogHour"
-                            class="generator-input"
-                            min="0"
-                            max="23"
-                            value="10"
-                    />
+                    <input type="number" id="genAnalogHour" class="generator-input" min="0" max="23" value="10"/>
                 </div>
                 <div class="minute-container">
                     <label style="color: #ef4444">Min</label>
-                    <input
-                            type="number"
-                            id="genAnalogMinute"
-                            class="generator-input"
-                            min="00"
-                            max="59"
-                            value="00"
-                    />
-                    <button
-                            onclick="setNearestPastTime('genAnalog')"
-                            class="now-button"
-                    >
+                    <input type="number" id="genAnalogMinute" class="generator-input" min="00" max="59"
+                           value="00"/>
+                    <button onclick="setNearestPastTime('genAnalog')" class="now-button">
                         Now
                     </button>
                 </div>
@@ -1046,28 +750,17 @@
 
             <div class="calculations">
                 <div class="calc-container">
-                    <!-- Pressure Section -->
                     <div class="calc-group">
                         <div class="calc-inputs">
                             <div>
-                                <label style="color: black; background-color: yellow"
-                                >Pressure max scale:</label
-                                >
-                                <input
-                                        type="number"
-                                        id="genPressureMaxScale"
-                                        class="generator-input"
-                                        min="1"
-                                        max="555"
-                                        value="60"
-                                />
+                                <label style="color: black; background-color: yellow">Pressure max scale:</label>
+                                <input type="number" id="genPressureMaxScale" class="generator-input" min="1"
+                                       max="555" value="60"/>
                             </div>
                         </div>
                         <div class="calc-results">
                             <div>
-                                <label style="color: black; background-color: yellow"
-                                >Pressure [mH2O]:</label
-                                >
+                                <label style="color: black; background-color: yellow">Pressure [mH2O]:</label>
                                 <div class="value-box">
                                     <div id="genPressureResult" class="value">NaN</div>
                                 </div>
@@ -1082,37 +775,19 @@
                     <div class="calc-group">
                         <div class="calc-inputs">
                             <div>
-                                <label style="color: black; background-color: red"
-                                >Temp min scale:</label
-                                >
-                                <input
-                                        type="number"
-                                        id="genTempMinScale"
-                                        class="generator-input"
-                                        min="-100"
-                                        max="100"
-                                        value="-20"
-                                />
+                                <label style="color: black; background-color: red">Temp min scale:</label>
+                                <input type="number" id="genTempMinScale" class="generator-input" min="-100"
+                                       max="100" value="-20"/>
                             </div>
                             <div>
-                                <label style="color: black; background-color: red"
-                                >Temp max scale:</label
-                                >
-                                <input
-                                        type="number"
-                                        id="genTempMaxScale"
-                                        class="generator-input"
-                                        min="-100"
-                                        max="120"
-                                        value="120"
-                                />
+                                <label style="color: black; background-color: red">Temp max scale:</label>
+                                <input type="number" id="genTempMaxScale" class="generator-input" min="-100"
+                                       max="120" value="120"/>
                             </div>
                         </div>
                         <div class="calc-results">
                             <div>
-                                <label style="color: black; background-color: red"
-                                >Temp [C°]:</label
-                                >
+                                <label style="color: black; background-color: red">Temp [C°]:</label>
                                 <div class="value-box">
                                     <div id="genTempResult" class="value">NaN</div>
                                 </div>
@@ -1124,7 +799,6 @@
 
             <button onclick="generateAnalogHexString()">Generate</button>
 
-            <!-- In the Analog tab, within the result-section div -->
             <div class="result-section">
                 <div style="display: flex; align-items: center; gap: 10px">
                     <label>Generated Hex String:</label>
@@ -1152,11 +826,8 @@
 
             <div class="input-section">
                 <label for="boxHexInput">Hex String Input:</label>
-                <input
-                        type="text"
-                        id="boxHexInput"
-                        value="DC1070C369000000000000000000000000000000000000210DE9A3407E80A090F04"
-                />
+                <input type="text" id="boxHexInput"
+                       value="DC1070C369000000000000000000000000000000000000210DE9A3407E80A090F04"/>
                 <div id="boxPreview" class="preview"></div>
             </div>
 
@@ -1225,6 +896,9 @@
                     </div>
                 </div>
             </div>
+            <button onclick="copyBoxToGenerator()" class="copy-to-gen-button copy-to-gen-button-box">
+                Copy to Generator →
+            </button>
         </div>
 
         <!-- Box Generator Section -->
@@ -1234,45 +908,21 @@
             <div class="grid">
                 <div>
                     <label style="color: #3b82f6">Account (KP id):</label>
-                    <input
-                            type="number"
-                            id="genBoxAccount"
-                            class="generator-input"
-                            value="50025"
-                    />
+                    <input type="number" id="genBoxAccount" class="generator-input" value="50025"/>
                 </div>
                 <div>
                     <label style="color: #22c55e">Index:</label>
-                    <input
-                            type="number"
-                            id="genBoxIndex"
-                            class="generator-input"
-                            min="0"
-                            max="8"
-                            value="0"
-                    />
+                    <input type="number" id="genBoxIndex" class="generator-input" min="0" max="8" value="0"/>
                 </div>
                 <div>
                     <label style="color: #d8c724">Signal Strength:</label>
-                    <input
-                            type="number"
-                            id="genBoxSignalStrength"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="222"
-                    />
+                    <input type="number" id="genBoxSignalStrength" class="generator-input" min="0" max="255"
+                           value="222"/>
                 </div>
                 <div>
                     <label style="color: #ff00ff">Repeater #:</label>
-                    <input
-                            type="number"
-                            id="genBoxRepeater"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="154"
-                    />
+                    <input type="number" id="genBoxRepeater" class="generator-input" min="0" max="255"
+                           value="154"/>
                 </div>
                 <div>
                     <label style="color: #f97316">Event Type:</label>
@@ -1289,58 +939,24 @@
             <div class="timestamp">
                 <div>
                     <label style="color: #40ff00">Year</label>
-                    <input
-                            type="number"
-                            id="genBoxYear"
-                            class="generator-input"
-                            min="2000"
-                            max="2050"
-                            value="2024"
-                    />
+                    <input type="number" id="genBoxYear" class="generator-input" min="2000" max="2050"
+                           value="2024"/>
                 </div>
                 <div>
                     <label style="color: #0ea5e9">Month</label>
-                    <input
-                            type="number"
-                            id="genBoxMonth"
-                            class="generator-input"
-                            min="1"
-                            max="12"
-                            value="10"
-                    />
+                    <input type="number" id="genBoxMonth" class="generator-input" min="1" max="12" value="10"/>
                 </div>
                 <div>
                     <label style="color: #ca8a04">Day</label>
-                    <input
-                            type="number"
-                            id="genBoxDay"
-                            class="generator-input"
-                            min="1"
-                            max="31"
-                            value="9"
-                    />
+                    <input type="number" id="genBoxDay" class="generator-input" min="1" max="31" value="9"/>
                 </div>
                 <div>
                     <label style="color: #15803d">Hour</label>
-                    <input
-                            type="number"
-                            id="genBoxHour"
-                            class="generator-input"
-                            min="0"
-                            max="23"
-                            value="15"
-                    />
+                    <input type="number" id="genBoxHour" class="generator-input" min="0" max="23" value="15"/>
                 </div>
                 <div class="minute-container">
                     <label style="color: #ef4444">Min</label>
-                    <input
-                            type="number"
-                            id="genBoxMinute"
-                            class="generator-input"
-                            min="00"
-                            max="59"
-                            value="4"
-                    />
+                    <input type="number" id="genBoxMinute" class="generator-input" min="00" max="59" value="4"/>
                     <button onclick="setNearestPastTime('genBox')" class="now-button">
                         Now
                     </button>
@@ -1376,11 +992,7 @@
 
             <div class="input-section">
                 <label for="onDemandHexInput">Hex String Input:</label>
-                <input
-                        type="text"
-                        id="onDemandHexInput"
-                        value="2305FA79A09230A0D"
-                />
+                <input type="text" id="onDemandHexInput" value="2305FA79A09230A0D"/>
                 <div id="onDemandPreview" class="preview"></div>
             </div>
 
@@ -1416,6 +1028,10 @@
                     </div>
                 </div>
             </div>
+
+            <button onclick="copyOnDemandToGenerator()" class="copy-to-gen-button copy-to-gen-button-ondemand">
+                Copy to Generator →
+            </button>
         </div>
 
         <!-- On-Demand Generator Section -->
@@ -1425,34 +1041,16 @@
             <div class="grid">
                 <div>
                     <label style="color: #22c55e">Index:</label>
-                    <input
-                            type="number"
-                            id="genOnDemandIndex"
-                            class="generator-input"
-                            min="0"
-                            max="8"
-                            value="3"
-                    />
+                    <input type="number" id="genOnDemandIndex" class="generator-input" min="0" max="8" value="3"/>
                 </div>
                 <div>
                     <label style="color: #3b82f6">Account (KP id):</label>
-                    <input
-                            type="number"
-                            id="genOnDemandAccount"
-                            class="generator-input"
-                            value="24487"
-                    />
+                    <input type="number" id="genOnDemandAccount" class="generator-input" value="24487"/>
                 </div>
                 <div>
                     <label style="color: #ff00ff">Repeater #:</label>
-                    <input
-                            type="number"
-                            id="genOnDemandRepeater"
-                            class="generator-input"
-                            min="0"
-                            max="255"
-                            value="154"
-                    />
+                    <input type="number" id="genOnDemandRepeater" class="generator-input" min="0" max="255"
+                           value="154"/>
                 </div>
                 <div>
                     <label style="color: #f97316">Request/Response:</label>
@@ -1496,4 +1094,5 @@
 
 <script src="js/scripts.js"></script>
 </body>
+
 </html>
