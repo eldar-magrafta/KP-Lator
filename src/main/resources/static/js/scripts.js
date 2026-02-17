@@ -295,6 +295,88 @@ function copyMeterToGenerator() {
     }, 1500);
 }
 
+// =============== RESET GENERATOR FUNCTIONS ===============
+
+function resetMeterGenerator() {
+    document.getElementById("genMeterReceiverNumber").value = "0";
+    document.getElementById("genMeterIndex").value = "0";
+    document.getElementById("genMeterType").value = "0";
+    document.getElementById("genMeterAccount").value = "00000";
+    document.getElementById("genCurrentReading").value = "0000";
+    document.getElementById("genData").value = "000";
+    document.getElementById("genMeterSignalStrength").value = "000";
+    document.getElementById("genMeterRepeater").value = "00";
+    document.getElementById("genMeterYear").value = "2000";
+    document.getElementById("genMeterMonth").value = "1";
+    document.getElementById("genMeterDay").value = "1";
+    document.getElementById("genMeterHour").value = "00";
+    document.getElementById("genMeterMinute").value = "00";
+    document.getElementById("generatedMeterHex").innerHTML = "";
+}
+
+function resetInstallationGenerator() {
+    document.getElementById("genReceiverNumber").value = "0";
+    document.getElementById("genIndex").value = "0";
+    document.getElementById("genType").value = "6";
+    document.getElementById("genAccount").value = "0000";
+    document.getElementById("genFactor").value = "0.01";
+    document.getElementById("genMedium").value = "07";
+    document.getElementById("genManufacturer").value = "4CAE";
+    document.getElementById("genSerialNumber").value = "99999998";
+    document.getElementById("genSignalStrength").value = "000";
+    document.getElementById("genRepeater").value = "000";
+    document.getElementById("genYear").value = "2000";
+    document.getElementById("genMonth").value = "00";
+    document.getElementById("genDay").value = "00";
+    document.getElementById("genHour").value = "00";
+    document.getElementById("genMinute").value = "00";
+    document.getElementById("generatedInstallationHex").innerHTML = "";
+}
+
+function resetAnalogGenerator() {
+    document.getElementById("genAnalogReceiverNumber").value = "0";
+    document.getElementById("genAnalogIndex").value = "0";
+    document.getElementById("genAnalogType").value = "4";
+    document.getElementById("genAnalogAccount").value = "00000";
+    document.getElementById("genAnalogSample").value = "000";
+    document.getElementById("genAnalogSignalStrength").value = "000";
+    document.getElementById("genAnalogRepeater").value = "000";
+    document.getElementById("genAnalogYear").value = "2000";
+    document.getElementById("genAnalogMonth").value = "00";
+    document.getElementById("genAnalogDay").value = "00";
+    document.getElementById("genAnalogHour").value = "00";
+    document.getElementById("genAnalogMinute").value = "00";
+    document.getElementById("genPressureMaxScale").value = "60";
+    document.getElementById("genTempMinScale").value = "-20";
+    document.getElementById("genTempMaxScale").value = "120";
+    document.getElementById("genPressureResult").textContent = "NaN";
+    document.getElementById("genTempResult").textContent = "NaN";
+    document.getElementById("generatedAnalogHex").innerHTML = "";
+}
+
+function resetBoxGenerator() {
+    document.getElementById("genBoxAccount").value = "00000";
+    document.getElementById("genBoxIndex").value = "0";
+    document.getElementById("genBoxSignalStrength").value = "000";
+    document.getElementById("genBoxRepeater").value = "000";
+    document.getElementById("genBoxEventType").value = "21";
+    document.getElementById("genBoxYear").value = "2000";
+    document.getElementById("genBoxMonth").value = "00";
+    document.getElementById("genBoxDay").value = "00";
+    document.getElementById("genBoxHour").value = "00";
+    document.getElementById("genBoxMinute").value = "00";
+    document.getElementById("generatedBoxHex").innerHTML = "";
+}
+
+function resetOnDemandGenerator() {
+    document.getElementById("genOnDemandIndex").value = "0";
+    document.getElementById("genOnDemandAccount").value = "00000";
+    document.getElementById("genOnDemandRepeater").value = "000";
+    document.getElementById("genOnDemandRequestType").value = "0";
+    document.getElementById("genOnDemandOnDemandType").value = "9";
+    document.getElementById("generatedOnDemandHex").innerHTML = "";
+}
+
 // Installation Related Functions //
 
 function getInstallationType(typeChar) {

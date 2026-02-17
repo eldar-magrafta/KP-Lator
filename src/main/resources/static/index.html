@@ -247,6 +247,7 @@
             </div>
 
             <button onclick="generateMeterHexString()">Generate</button>
+            <button onclick="resetMeterGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
                 <div style="display: flex; align-items: center; gap: 10px">
@@ -283,7 +284,8 @@
                 <input type="text" id="hexInput"
                        value="DC146024E3000000000000000000000C04074CAE999999980B2FA4007E80C0C0B2C"/>
                 <div id="preview" class="preview"></div>
-                <button onclick="copyInstallationToGenerator()" class="copy-to-gen-button copy-to-gen-button-installation">
+                <button onclick="copyInstallationToGenerator()"
+                        class="copy-to-gen-button copy-to-gen-button-installation">
                     Copy to Generator →
                 </button>
             </div>
@@ -511,6 +513,7 @@
             </div>
 
             <button onclick="generateInstallationHexString()">Generate</button>
+            <button onclick="resetInstallationGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
                 <div style="display: flex; align-items: center; gap: 10px">
@@ -795,6 +798,7 @@
             </div>
 
             <button onclick="generateAnalogHexString()">Generate</button>
+            <button onclick="resetAnalogGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
                 <div style="display: flex; align-items: center; gap: 10px">
@@ -961,6 +965,7 @@
             </div>
 
             <button onclick="generateBoxHexString()">Generate</button>
+            <button onclick="resetBoxGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
                 <div style="display: flex; align-items: center; gap: 10px">
@@ -1074,6 +1079,7 @@
             </div>
 
             <button onclick="generateOnDemandHexString()">Generate</button>
+            <button onclick="resetOnDemandGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
                 <div style="display: flex; align-items: center; gap: 10px">
