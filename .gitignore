@@ -39,3 +39,4 @@ build/
 # Prevent accidental commits of sensitive files
 secrets.*
 *.secret
+run-kplator.bat

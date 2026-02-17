@@ -652,3 +652,54 @@ body.dark-mode.no-color .preview span,
 body.dark-mode.no-color .value {
     color: var(--text-dark) !important;
 }
+
+/* =============== HEX SEGMENT TOOLTIP =============== */
+.hex-segment {
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.hex-segment:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.hex-tooltip {
+    position: fixed;
+    background-color: #1e293b;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
+
+.hex-tooltip .tooltip-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.hex-tooltip .tooltip-position {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+/* Dark mode tooltip */
+body.dark-mode .hex-segment:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .hex-tooltip {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+body.dark-mode .hex-tooltip .tooltip-position {
+    color: #64748b;
+}

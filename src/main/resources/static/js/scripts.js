@@ -113,27 +113,29 @@ function getMeterType(typeChar) {
 
 function renderMeterPreview(str) {
     const parts = [
-        {text: str.slice(0, 3), color: "#000000"}, // STX + Constants (DC)
-        {text: str.slice(3, 4), color: "#ff00ff"}, // Receiver number
-        {text: str.slice(4, 5), color: "#22c55e"}, // Index
-        {text: str.slice(5, 6), color: "#f97316"}, // Type
-        {text: str.slice(6, 11), color: "#3b82f6"}, // Account (KP id)
-        {text: str.slice(11, 19), color: "#ef4444"}, // Current reading
-        {text: str.slice(19, 49), color: "#a855f7"}, // Data - 30 chars
-        {text: str.slice(49, 50), color: "#000000"}, // Channel
-        {text: str.slice(50, 52), color: "#d8c724"}, // Signal Strength
-        {text: str.slice(52, 54), color: "#ff00ff"}, // Repeater Number
-        {text: str.slice(54, 57), color: "#000000"}, // ETX + Checksum
-        {text: str.slice(57, 61), color: "#40ff00"}, // Year
-        {text: str.slice(61, 63), color: "#0ea5e9"}, // Month
-        {text: str.slice(63, 65), color: "#ca8a04"}, // Day
-        {text: str.slice(65, 67), color: "#15803d"}, // Hour
-        {text: str.slice(67, 69), color: "#ef4444"}, // Minute
+        {text: str.slice(0, 3), color: "#000000", name: "Header (STX + DC)", start: 0, end: 2},
+        {text: str.slice(3, 4), color: "#ff00ff", name: "Receiver Number", start: 3, end: 3},
+        {text: str.slice(4, 5), color: "#22c55e", name: "Index", start: 4, end: 4},
+        {text: str.slice(5, 6), color: "#f97316", name: "Type", start: 5, end: 5},
+        {text: str.slice(6, 11), color: "#3b82f6", name: "Account (KP id)", start: 6, end: 10},
+        {text: str.slice(11, 19), color: "#ef4444", name: "Current Reading", start: 11, end: 18},
+        {text: str.slice(19, 49), color: "#a855f7", name: "Data", start: 19, end: 48},
+        {text: str.slice(49, 50), color: "#000000", name: "Channel", start: 49, end: 49},
+        {text: str.slice(50, 52), color: "#d8c724", name: "Signal Strength", start: 50, end: 51},
+        {text: str.slice(52, 54), color: "#ff00ff", name: "Repeater #", start: 52, end: 53},
+        {text: str.slice(54, 57), color: "#000000", name: "ETX + Checksum", start: 54, end: 56},
+        {text: str.slice(57, 61), color: "#40ff00", name: "Year", start: 57, end: 60},
+        {text: str.slice(61, 63), color: "#0ea5e9", name: "Month", start: 61, end: 62},
+        {text: str.slice(63, 65), color: "#ca8a04", name: "Day", start: 63, end: 64},
+        {text: str.slice(65, 67), color: "#15803d", name: "Hour", start: 65, end: 66},
+        {text: str.slice(67, 69), color: "#ef4444", name: "Minute", start: 67, end: 68},
     ];
 
     let html = "";
     parts.forEach((part) => {
-        html += `<span style="color: ${part.color}">${part.text}</span>`;
+        if (part.text) {
+            html += `<span class="hex-segment" style="color: ${part.color}" data-name="${part.name}" data-start="${part.start}" data-end="${part.end}">${part.text}</span>`;
+        }
     });
 
     return html;
@@ -408,30 +410,32 @@ function getFactorValue(factorDecimal) {
 // render colored preview
 function renderInstallationPreview(str) {
     const parts = [
-        {text: str.slice(0, 3), color: "#000000"}, // First 3 chars
-        {text: str.slice(3, 4), color: "#ff00ff"}, // Receiver number
-        {text: str.slice(4, 5), color: "#22c55e"}, // Index
-        {text: str.slice(5, 6), color: "#f97316"}, // Type
-        {text: str.slice(6, 11), color: "#3b82f6"}, // Account
-        {text: str.slice(11, 33), color: "#000000"}, // reserved
-        {text: str.slice(33, 35), color: "#ef4444"}, // factor
-        {text: str.slice(35, 37), color: "#22c55e"}, // medium
-        {text: str.slice(37, 41), color: "#cc7400"}, // water meter manufracturer
-        {text: str.slice(41, 49), color: "#a855f7"}, // Meter S/N
-        {text: str.slice(49, 50), color: "#000000"}, // Channel
-        {text: str.slice(50, 52), color: "#d8c724"}, // Signal Strength
-        {text: str.slice(52, 54), color: "#ff00ff"}, // Repeater Number
-        {text: str.slice(54, 57), color: "#000000"}, // ETX + Checksum
-        {text: str.slice(57, 61), color: "#40ff00"}, // Year
-        {text: str.slice(61, 63), color: "#0ea5e9"}, // Month
-        {text: str.slice(63, 65), color: "#ca8a04"}, // Day
-        {text: str.slice(65, 67), color: "#15803d"}, // Hour
-        {text: str.slice(67, 69), color: "#ef4444"}, // Minute
+        {text: str.slice(0, 3), color: "#000000", name: "Header (STX + DC)", start: 0, end: 2},
+        {text: str.slice(3, 4), color: "#ff00ff", name: "Receiver Number", start: 3, end: 3},
+        {text: str.slice(4, 5), color: "#22c55e", name: "Index", start: 4, end: 4},
+        {text: str.slice(5, 6), color: "#f97316", name: "Type", start: 5, end: 5},
+        {text: str.slice(6, 11), color: "#3b82f6", name: "Account (KP id)", start: 6, end: 10},
+        {text: str.slice(11, 33), color: "#000000", name: "Reserved", start: 11, end: 32},
+        {text: str.slice(33, 35), color: "#ef4444", name: "Factor", start: 33, end: 34},
+        {text: str.slice(35, 37), color: "#22c55e", name: "Medium", start: 35, end: 36},
+        {text: str.slice(37, 41), color: "#cc7400", name: "Manufacturer", start: 37, end: 40},
+        {text: str.slice(41, 49), color: "#a855f7", name: "Meter S/N", start: 41, end: 48},
+        {text: str.slice(49, 50), color: "#000000", name: "Channel", start: 49, end: 49},
+        {text: str.slice(50, 52), color: "#d8c724", name: "Signal Strength", start: 50, end: 51},
+        {text: str.slice(52, 54), color: "#ff00ff", name: "Repeater #", start: 52, end: 53},
+        {text: str.slice(54, 57), color: "#000000", name: "ETX + Checksum", start: 54, end: 56},
+        {text: str.slice(57, 61), color: "#40ff00", name: "Year", start: 57, end: 60},
+        {text: str.slice(61, 63), color: "#0ea5e9", name: "Month", start: 61, end: 62},
+        {text: str.slice(63, 65), color: "#ca8a04", name: "Day", start: 63, end: 64},
+        {text: str.slice(65, 67), color: "#15803d", name: "Hour", start: 65, end: 66},
+        {text: str.slice(67, 69), color: "#ef4444", name: "Minute", start: 67, end: 68},
     ];
 
     let html = "";
     parts.forEach((part) => {
-        html += `<span style="color: ${part.color}">${part.text}</span>`;
+        if (part.text) {
+            html += `<span class="hex-segment" style="color: ${part.color}" data-name="${part.name}" data-start="${part.start}" data-end="${part.end}">${part.text}</span>`;
+        }
     });
 
     return html;
@@ -624,28 +628,29 @@ function getAnalogType(typeChar) {
 // Add new render function
 function renderAnalogPreview(str) {
     const parts = [
-        {text: str.slice(0, 3), color: "#000000"}, // STX + Constants (DC)
-        {text: str.slice(3, 4), color: "#ff00ff"}, // Receiver number
-        {text: str.slice(4, 5), color: "#22c55e"}, // Index
-        {text: str.slice(5, 6), color: "#f97316"}, // Type
-        {text: str.slice(6, 11), color: "#3b82f6"}, // Account
-        {text: str.slice(11, 14), color: "#ef4444"}, // Analog Sample/Reading (3 chars)
-        {text: str.slice(14, 19), color: "#000000"}, // Reserved (5 chars)
-        {text: str.slice(19, 49), color: "#000000"}, // Reserved (30 chars)
-        {text: str.slice(49, 50), color: "#000000"}, // Channel
-        {text: str.slice(50, 52), color: "#d8c724"}, // Signal Strength
-        {text: str.slice(52, 54), color: "#ff00ff"}, // Repeater
-        {text: str.slice(54, 57), color: "#000000"}, // ETX + Checksum
-        {text: str.slice(57, 61), color: "#40ff00"}, // Year
-        {text: str.slice(61, 63), color: "#0ea5e9"}, // Month
-        {text: str.slice(63, 65), color: "#ca8a04"}, // Day
-        {text: str.slice(65, 67), color: "#15803d"}, // Hour
-        {text: str.slice(67, 69), color: "#ef4444"}, // Minute
+        {text: str.slice(0, 3), color: "#000000", name: "Header (STX + DC)", start: 0, end: 2},
+        {text: str.slice(3, 4), color: "#ff00ff", name: "Receiver Number", start: 3, end: 3},
+        {text: str.slice(4, 5), color: "#22c55e", name: "Index", start: 4, end: 4},
+        {text: str.slice(5, 6), color: "#f97316", name: "Type", start: 5, end: 5},
+        {text: str.slice(6, 11), color: "#3b82f6", name: "Account (KP id)", start: 6, end: 10},
+        {text: str.slice(11, 14), color: "#ef4444", name: "Analog Sample", start: 11, end: 13},
+        {text: str.slice(14, 49), color: "#000000", name: "Reserved", start: 14, end: 48},
+        {text: str.slice(49, 50), color: "#000000", name: "Channel", start: 49, end: 49},
+        {text: str.slice(50, 52), color: "#d8c724", name: "Signal Strength", start: 50, end: 51},
+        {text: str.slice(52, 54), color: "#ff00ff", name: "Repeater #", start: 52, end: 53},
+        {text: str.slice(54, 57), color: "#000000", name: "ETX + Checksum", start: 54, end: 56},
+        {text: str.slice(57, 61), color: "#40ff00", name: "Year", start: 57, end: 60},
+        {text: str.slice(61, 63), color: "#0ea5e9", name: "Month", start: 61, end: 62},
+        {text: str.slice(63, 65), color: "#ca8a04", name: "Day", start: 63, end: 64},
+        {text: str.slice(65, 67), color: "#15803d", name: "Hour", start: 65, end: 66},
+        {text: str.slice(67, 69), color: "#ef4444", name: "Minute", start: 67, end: 68},
     ];
 
     let html = "";
     parts.forEach((part) => {
-        html += `<span style="color: ${part.color}">${part.text}</span>`;
+        if (part.text) {
+            html += `<span class="hex-segment" style="color: ${part.color}" data-name="${part.name}" data-start="${part.start}" data-end="${part.end}">${part.text}</span>`;
+        }
     });
     return html;
 }
@@ -975,28 +980,30 @@ function getEventTypeValue(eventText) {
 
 function renderBoxPreview(str) {
     const parts = [
-        {text: str.slice(0, 4), color: "#000000"}, // Header
-        {text: str.slice(4, 5), color: "#22c55e"}, // Index
-        {text: str.slice(5, 6), color: "#000000"}, //
-        {text: str.slice(6, 11), color: "#3b82f6"}, // Account
-        {text: str.slice(11, 35), color: "#000000"}, //
-        {text: str.slice(35, 37), color: "#f97316"}, // Event Type secondary digits
-        {text: str.slice(37, 47), color: "#000000"}, //
-        {text: str.slice(47, 49), color: "#f97316"}, // Event Type primary digits
-        {text: str.slice(49, 50), color: "#000000"}, // stam
-        {text: str.slice(50, 52), color: "#d8c724"}, // Signal Strength
-        {text: str.slice(52, 54), color: "#ff00ff"}, // Repeater
-        {text: str.slice(54, 57), color: "#000000"}, //
-        {text: str.slice(57, 61), color: "#40ff00"}, // Year
-        {text: str.slice(61, 63), color: "#0ea5e9"}, // Month
-        {text: str.slice(63, 65), color: "#ca8a04"}, // Day
-        {text: str.slice(65, 67), color: "#15803d"}, // Hour
-        {text: str.slice(67, 69), color: "#ef4444"}, // Minute
+        {text: str.slice(0, 4), color: "#000000", name: "Header", start: 0, end: 3},
+        {text: str.slice(4, 5), color: "#22c55e", name: "Index", start: 4, end: 4},
+        {text: str.slice(5, 6), color: "#000000", name: "Reserved", start: 5, end: 5},
+        {text: str.slice(6, 11), color: "#3b82f6", name: "Account (KP id)", start: 6, end: 10},
+        {text: str.slice(11, 35), color: "#000000", name: "Reserved", start: 11, end: 34},
+        {text: str.slice(35, 37), color: "#f97316", name: "Event Type (secondary)", start: 35, end: 36},
+        {text: str.slice(37, 47), color: "#000000", name: "Reserved", start: 37, end: 46},
+        {text: str.slice(47, 49), color: "#f97316", name: "Event Type (primary)", start: 47, end: 48},
+        {text: str.slice(49, 50), color: "#000000", name: "Reserved", start: 49, end: 49},
+        {text: str.slice(50, 52), color: "#d8c724", name: "Signal Strength", start: 50, end: 51},
+        {text: str.slice(52, 54), color: "#ff00ff", name: "Repeater #", start: 52, end: 53},
+        {text: str.slice(54, 57), color: "#000000", name: "ETX + Checksum", start: 54, end: 56},
+        {text: str.slice(57, 61), color: "#40ff00", name: "Year", start: 57, end: 60},
+        {text: str.slice(61, 63), color: "#0ea5e9", name: "Month", start: 61, end: 62},
+        {text: str.slice(63, 65), color: "#ca8a04", name: "Day", start: 63, end: 64},
+        {text: str.slice(65, 67), color: "#15803d", name: "Hour", start: 65, end: 66},
+        {text: str.slice(67, 69), color: "#ef4444", name: "Minute", start: 67, end: 68},
     ];
 
     let html = "";
     parts.forEach((part) => {
-        html += `<span style="color: ${part.color}">${part.text}</span>`;
+        if (part.text) {
+            html += `<span class="hex-segment" style="color: ${part.color}" data-name="${part.name}" data-start="${part.start}" data-end="${part.end}">${part.text}</span>`;
+        }
     });
 
     return html;
@@ -1199,18 +1206,20 @@ function getOnDemandTypeValue(typeText) {
 
 function renderOnDemandPreview(str) {
     const parts = [
-        {text: str.slice(0, 1), color: "#000000"}, // Start
-        {text: str.slice(1, 2), color: "#22c55e"}, // index
-        {text: str.slice(2, 7), color: "#3b82f6"}, // Account (KP id)
-        {text: str.slice(7, 9), color: "#ff00ff"}, // Repeater #
-        {text: str.slice(9, 10), color: "#f97316"}, // Request/Response
-        {text: str.slice(10, 11), color: "#22c55e"}, // On-Demand type
-        {text: str.slice(11), color: "#000000"}, // Rest
+        {text: str.slice(0, 1), color: "#000000", name: "Header", start: 0, end: 0},
+        {text: str.slice(1, 2), color: "#22c55e", name: "Index", start: 1, end: 1},
+        {text: str.slice(2, 7), color: "#3b82f6", name: "Account (KP id)", start: 2, end: 6},
+        {text: str.slice(7, 9), color: "#ff00ff", name: "Repeater #", start: 7, end: 8},
+        {text: str.slice(9, 10), color: "#f97316", name: "Request/Response", start: 9, end: 9},
+        {text: str.slice(10, 11), color: "#22c55e", name: "On-Demand Type", start: 10, end: 10},
+        {text: str.slice(11), color: "#000000", name: "Footer", start: 11, end: str.length - 1},
     ];
 
     let html = "";
     parts.forEach((part) => {
-        html += `<span style="color: ${part.color}">${part.text}</span>`;
+        if (part.text) {
+            html += `<span class="hex-segment" style="color: ${part.color}" data-name="${part.name}" data-start="${part.start}" data-end="${part.end}">${part.text}</span>`;
+        }
     });
     return html;
 }
@@ -1322,50 +1331,36 @@ function copyOnDemandToGenerator() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Initial parsing
-    parseInstallationHexString(document.getElementById("hexInput").value);
+    // =============== INITIAL PARSING ===============
     parseMeterHexString(document.getElementById("meterHexInput").value);
+    parseInstallationHexString(document.getElementById("hexInput").value);
     parseAnalogHexString(document.getElementById("analogHexInput").value);
     parseBoxHexString(document.getElementById("boxHexInput").value);
     parseOnDemandHexString(document.getElementById("onDemandHexInput").value);
-    // Event listeners
+
+    // =============== HEX INPUT EVENT LISTENERS ===============
+    document.getElementById("meterHexInput").addEventListener("input", function (e) {
+        parseMeterHexString(e.target.value);
+    });
+
     document.getElementById("hexInput").addEventListener("input", function (e) {
         parseInstallationHexString(e.target.value);
     });
-    document
-        .getElementById("meterHexInput")
-        .addEventListener("input", function (e) {
-            parseMeterHexString(e.target.value);
-        });
-    document
-        .getElementById("analogHexInput")
-        .addEventListener("input", function (e) {
-            parseAnalogHexString(e.target.value);
-        });
-    document
-        .getElementById("boxHexInput")
-        .addEventListener("input", function (e) {
-            parseBoxHexString(e.target.value);
-        });
 
-    document
-        .getElementById("onDemandHexInput")
-        .addEventListener("input", function (e) {
-            parseOnDemandHexString(e.target.value);
-        });
+    document.getElementById("analogHexInput").addEventListener("input", function (e) {
+        parseAnalogHexString(e.target.value);
+    });
 
-    // Replace radio button event listeners with checkbox
-    document
-        .getElementById("colorModeToggle")
-        .addEventListener("change", function (e) {
-            const body = document.body;
-            if (this.checked) {
-                body.classList.add("no-color");
-            } else {
-                body.classList.remove("no-color");
-            }
-        });
+    document.getElementById("boxHexInput").addEventListener("input", function (e) {
+        parseBoxHexString(e.target.value);
+    });
 
+    document.getElementById("onDemandHexInput").addEventListener("input", function (e) {
+        parseOnDemandHexString(e.target.value);
+    });
+
+    // =============== DISPLAY MODE TOGGLES ===============
+    // Dark mode - load saved preference
     const darkModePreference = localStorage.getItem("darkMode");
     const darkModeToggle = document.getElementById("displayModeToggle");
 
@@ -1374,8 +1369,52 @@ document.addEventListener("DOMContentLoaded", function () {
         darkModeToggle.checked = true;
     }
 
-    // Add event listener for dark mode toggle
     darkModeToggle.addEventListener("change", toggleDarkMode);
+
+    // Color mode toggle (B&W)
+    document.getElementById("colorModeToggle").addEventListener("change", function () {
+        if (this.checked) {
+            document.body.classList.add("no-color");
+        } else {
+            document.body.classList.remove("no-color");
+        }
+    });
+
+    // =============== HEX SEGMENT TOOLTIP ===============
+    const tooltip = document.createElement("div");
+    tooltip.className = "hex-tooltip";
+    tooltip.style.display = "none";
+    document.body.appendChild(tooltip);
+
+    document.addEventListener("mouseover", function (e) {
+        if (e.target.classList.contains("hex-segment")) {
+            const name = e.target.dataset.name;
+            const start = e.target.dataset.start;
+            const end = e.target.dataset.end;
+
+            const positionText = start === end ? `Position: ${start}` : `Position: ${start}-${end}`;
+            const lengthText = start === end ? "(1 char)" : `(${parseInt(end) - parseInt(start) + 1} chars)`;
+
+            tooltip.innerHTML = `
+                <div class="tooltip-name">${name}</div>
+                <div class="tooltip-position">${positionText} ${lengthText}</div>
+            `;
+            tooltip.style.display = "block";
+        }
+    });
+
+    document.addEventListener("mousemove", function (e) {
+        if (tooltip.style.display === "block") {
+            tooltip.style.left = (e.clientX + 15) + "px";
+            tooltip.style.top = (e.clientY + 15) + "px";
+        }
+    });
+
+    document.addEventListener("mouseout", function (e) {
+        if (e.target.classList.contains("hex-segment")) {
+            tooltip.style.display = "none";
+        }
+    });
 });
 
 function sendToMeterQueue() {
