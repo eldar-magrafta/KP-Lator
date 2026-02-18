@@ -36,6 +36,121 @@ function validateInput(value, min, max) {
     return !isNaN(num) && num >= min && num <= max;
 }
 
+// =============== INPUT VALIDATION WITH VISUAL FEEDBACK ===============
+
+function validateField(inputId, min, max) {
+    const input = document.getElementById(inputId);
+    const value = parseInt(input.value);
+
+    if (isNaN(value) || value < min || value > max) {
+        input.classList.add("invalid");
+        showValidationMessage(input, `Must be between ${min} and ${max}`);
+        return false;
+    } else {
+        input.classList.remove("invalid");
+        hideValidationMessage(input);
+        return true;
+    }
+}
+
+function showValidationMessage(input, message) {
+    let msgElement = input.nextElementSibling;
+
+    // Create message element if it doesn't exist
+    if (!msgElement || !msgElement.classList.contains("validation-message")) {
+        msgElement = document.createElement("div");
+        msgElement.className = "validation-message";
+        input.parentNode.insertBefore(msgElement, input.nextSibling);
+    }
+
+    msgElement.textContent = message;
+    msgElement.classList.add("show");
+}
+
+function hideValidationMessage(input) {
+    const msgElement = input.nextElementSibling;
+    if (msgElement && msgElement.classList.contains("validation-message")) {
+        msgElement.classList.remove("show");
+    }
+}
+
+function validateMeterGenerator() {
+    let isValid = true;
+
+    isValid = validateField("genMeterReceiverNumber", 0, 15) && isValid;
+    isValid = validateField("genMeterIndex", 0, 8) && isValid;
+    isValid = validateField("genMeterAccount", 0, 1048575) && isValid;
+    isValid = validateField("genMeterSignalStrength", 0, 255) && isValid;
+    isValid = validateField("genMeterRepeater", 0, 255) && isValid;
+    isValid = validateField("genMeterYear", 2000, 2099) && isValid;
+    isValid = validateField("genMeterMonth", 1, 12) && isValid;
+    isValid = validateField("genMeterDay", 1, 31) && isValid;
+    isValid = validateField("genMeterHour", 0, 23) && isValid;
+
+    return isValid;
+}
+
+function validateInstallationGenerator() {
+    let isValid = true;
+
+    isValid = validateField("genReceiverNumber", 0, 15) && isValid;
+    isValid = validateField("genIndex", 0, 8) && isValid;
+    isValid = validateField("genAccount", 0, 1048575) && isValid;
+    isValid = validateField("genSignalStrength", 0, 255) && isValid;
+    isValid = validateField("genRepeater", 0, 255) && isValid;
+    isValid = validateField("genYear", 2000, 2099) && isValid;
+    isValid = validateField("genMonth", 1, 12) && isValid;
+    isValid = validateField("genDay", 1, 31) && isValid;
+    isValid = validateField("genHour", 0, 23) && isValid;
+    isValid = validateField("genMinute", 0, 59) && isValid;
+
+    return isValid;
+}
+
+function validateAnalogGenerator() {
+    let isValid = true;
+
+    isValid = validateField("genAnalogReceiverNumber", 0, 15) && isValid;
+    isValid = validateField("genAnalogIndex", 0, 8) && isValid;
+    isValid = validateField("genAnalogAccount", 0, 1048575) && isValid;
+    isValid = validateField("genAnalogSample", 0, 4095) && isValid;
+    isValid = validateField("genAnalogSignalStrength", 0, 255) && isValid;
+    isValid = validateField("genAnalogRepeater", 0, 255) && isValid;
+    isValid = validateField("genAnalogYear", 2000, 2099) && isValid;
+    isValid = validateField("genAnalogMonth", 1, 12) && isValid;
+    isValid = validateField("genAnalogDay", 1, 31) && isValid;
+    isValid = validateField("genAnalogHour", 0, 23) && isValid;
+    isValid = validateField("genAnalogMinute", 0, 59) && isValid;
+
+    return isValid;
+}
+
+function validateBoxGenerator() {
+    let isValid = true;
+
+    isValid = validateField("genBoxAccount", 0, 1048575) && isValid;
+    isValid = validateField("genBoxIndex", 0, 8) && isValid;
+    isValid = validateField("genBoxSignalStrength", 0, 255) && isValid;
+    isValid = validateField("genBoxRepeater", 0, 255) && isValid;
+    isValid = validateField("genBoxYear", 2000, 2099) && isValid;
+    isValid = validateField("genBoxMonth", 1, 12) && isValid;
+    isValid = validateField("genBoxDay", 1, 31) && isValid;
+    isValid = validateField("genBoxHour", 0, 23) && isValid;
+    isValid = validateField("genBoxMinute", 0, 59) && isValid;
+
+    return isValid;
+}
+
+function validateOnDemandGenerator() {
+    let isValid = true;
+
+    isValid = validateField("genOnDemandIndex", 0, 8) && isValid;
+    isValid = validateField("genOnDemandAccount", 0, 1048575) && isValid;
+    isValid = validateField("genOnDemandRepeater", 0, 255) && isValid;
+
+    return isValid;
+}
+
 function copyToClipboard(text, type) {
     navigator.clipboard
         .writeText(text)
@@ -193,17 +308,18 @@ function parseMeterHexString(hexString) {
 
 function generateMeterHexString() {
     try {
-        const receiverNumber = document.getElementById(
-            "genMeterReceiverNumber",
-        ).value;
+        // Validate all fields first
+        if (!validateMeterGenerator()) {
+            return;
+        }
+
+        const receiverNumber = document.getElementById("genMeterReceiverNumber").value;
         const index = document.getElementById("genMeterIndex").value;
         const type = document.getElementById("genMeterType").value;
         const account = document.getElementById("genMeterAccount").value;
         const currentReading = document.getElementById("genCurrentReading").value;
         const data = document.getElementById("genData").value;
-        const signalStrength = document.getElementById(
-            "genMeterSignalStrength",
-        ).value;
+        const signalStrength = document.getElementById("genMeterSignalStrength").value;
         const repeater = document.getElementById("genMeterRepeater").value;
         const year = document.getElementById("genMeterYear").value;
         const month = document.getElementById("genMeterMonth").value;
@@ -326,8 +442,8 @@ function resetInstallationGenerator() {
     document.getElementById("genSignalStrength").value = "000";
     document.getElementById("genRepeater").value = "000";
     document.getElementById("genYear").value = "2000";
-    document.getElementById("genMonth").value = "00";
-    document.getElementById("genDay").value = "00";
+    document.getElementById("genMonth").value = "1";
+    document.getElementById("genDay").value = "1";
     document.getElementById("genHour").value = "00";
     document.getElementById("genMinute").value = "00";
     document.getElementById("generatedInstallationHex").innerHTML = "";
@@ -342,8 +458,8 @@ function resetAnalogGenerator() {
     document.getElementById("genAnalogSignalStrength").value = "000";
     document.getElementById("genAnalogRepeater").value = "000";
     document.getElementById("genAnalogYear").value = "2000";
-    document.getElementById("genAnalogMonth").value = "00";
-    document.getElementById("genAnalogDay").value = "00";
+    document.getElementById("genAnalogMonth").value = "1";
+    document.getElementById("genAnalogDay").value = "1";
     document.getElementById("genAnalogHour").value = "00";
     document.getElementById("genAnalogMinute").value = "00";
     document.getElementById("genPressureMaxScale").value = "60";
@@ -361,8 +477,8 @@ function resetBoxGenerator() {
     document.getElementById("genBoxRepeater").value = "000";
     document.getElementById("genBoxEventType").value = "21";
     document.getElementById("genBoxYear").value = "2000";
-    document.getElementById("genBoxMonth").value = "00";
-    document.getElementById("genBoxDay").value = "00";
+    document.getElementById("genBoxMonth").value = "1";
+    document.getElementById("genBoxDay").value = "1";
     document.getElementById("genBoxHour").value = "00";
     document.getElementById("genBoxMinute").value = "00";
     document.getElementById("generatedBoxHex").innerHTML = "";
@@ -584,6 +700,11 @@ function parseInstallationHexString(hexString) {
 // Generate functions
 function generateInstallationHexString() {
     try {
+        // Validate all fields first
+        if (!validateInstallationGenerator()) {
+            return;
+        }
+
         const receiverNumber = document.getElementById("genReceiverNumber").value;
         const index = document.getElementById("genIndex").value;
         const type = document.getElementById("genType").value;
@@ -599,17 +720,6 @@ function generateInstallationHexString() {
         const day = document.getElementById("genDay").value;
         const hour = document.getElementById("genHour").value;
         const minute = document.getElementById("genMinute").value;
-
-        if (
-            !validateInput(year, 2000, 9999) ||
-            !validateInput(month, 1, 12) ||
-            !validateInput(day, 1, 31) ||
-            !validateInput(hour, 0, 23) ||
-            !validateInput(minute, 0, 59)
-        ) {
-            alert("Error in timestamp values");
-            return;
-        }
 
         let hexString = "DC";
         hexString += dec2hex(receiverNumber, 1);
@@ -794,17 +904,17 @@ function parseAnalogHexString(hexString) {
 // Add generate function
 function generateAnalogHexString() {
     try {
-        // Get all input values from the form
-        const receiverNumber = document.getElementById(
-            "genAnalogReceiverNumber",
-        ).value;
+        // Validate all fields first
+        if (!validateAnalogGenerator()) {
+            return;
+        }
+
+        const receiverNumber = document.getElementById("genAnalogReceiverNumber").value;
         const index = document.getElementById("genAnalogIndex").value;
         const type = document.getElementById("genAnalogType").value;
         const account = document.getElementById("genAnalogAccount").value;
         const analogSample = document.getElementById("genAnalogSample").value;
-        const signalStrength = document.getElementById(
-            "genAnalogSignalStrength",
-        ).value;
+        const signalStrength = document.getElementById("genAnalogSignalStrength").value;
         const repeater = document.getElementById("genAnalogRepeater").value;
         const year = document.getElementById("genAnalogYear").value;
         const month = document.getElementById("genAnalogMonth").value;
@@ -812,19 +922,6 @@ function generateAnalogHexString() {
         const hour = document.getElementById("genAnalogHour").value;
         const minute = document.getElementById("genAnalogMinute").value;
 
-        // Validate timestamp values
-        if (
-            !validateInput(year, 2000, 9999) ||
-            !validateInput(month, 1, 12) ||
-            !validateInput(day, 1, 31) ||
-            !validateInput(hour, 0, 23) ||
-            !validateInput(minute, 0, 59)
-        ) {
-            alert("Error in timestamp values");
-            return;
-        }
-
-        // Generate the hex string
         let hexString = "DC";
         hexString += dec2hex(receiverNumber, 1);
         hexString += dec2hex(index, 1);
@@ -842,11 +939,9 @@ function generateAnalogHexString() {
         hexString += dec2hex(hour, 2);
         hexString += dec2hex(minute, 2);
 
-        // Display the generated hex string with color formatting
         document.getElementById("generatedAnalogHex").innerHTML =
             renderAnalogPreview(hexString);
 
-        // Calculate and display pressure and temperature results
         calculateGeneratorResults();
     } catch (error) {
         console.error("Error generating analog hex string:", error);
@@ -1135,32 +1230,23 @@ function parseBoxHexString(hexString) {
 
 function generateBoxHexString() {
     try {
+        // Validate all fields first
+        if (!validateBoxGenerator()) {
+            return;
+        }
+
         const account = document.getElementById("genBoxAccount").value;
         const index = document.getElementById("genBoxIndex").value;
-        const signalStrength = document.getElementById(
-            "genBoxSignalStrength",
-        ).value;
+        const signalStrength = document.getElementById("genBoxSignalStrength").value;
         const repeater = document.getElementById("genBoxRepeater").value;
-
         const eventType = document.getElementById("genBoxEventType").value;
-
         const year = document.getElementById("genBoxYear").value;
         const month = document.getElementById("genBoxMonth").value;
         const day = document.getElementById("genBoxDay").value;
         const hour = document.getElementById("genBoxHour").value;
         const minute = document.getElementById("genBoxMinute").value;
 
-        if (
-            !validateInput(year, 2000, 9999) ||
-            !validateInput(month, 1, 12) ||
-            !validateInput(day, 1, 31) ||
-            !validateInput(hour, 0, 23)
-        ) {
-            alert("Error in timestamp values");
-            return;
-        }
-
-        let hexString = "DC1"; // Header
+        let hexString = "DC1";
         hexString += dec2hex(index, 1);
         hexString += "7"; //dummy type
         hexString += dec2hex(account, 5);
@@ -1172,7 +1258,6 @@ function generateBoxHexString() {
             hexString += "0".repeat(10);
             hexString += "00"; // Event type for Install
         } else if (eventType === "00-testEvent") {
-            // Changed 'elif' to 'else if'
             hexString += "0".repeat(14);
         } else {
             hexString += "00"; // Medium for other events
@@ -1334,37 +1419,25 @@ function parseOnDemandHexString(hexString) {
 
 function generateOnDemandHexString() {
     try {
-        // Get input values
+        // Validate all fields first
+        if (!validateOnDemandGenerator()) {
+            return;
+        }
+
         const index = document.getElementById("genOnDemandIndex").value;
         const account = document.getElementById("genOnDemandAccount").value;
         const repeater = document.getElementById("genOnDemandRepeater").value;
         const requestType = document.getElementById("genOnDemandRequestType").value;
-        const onDemandType = document.getElementById(
-            "genOnDemandOnDemandType",
-        ).value;
+        const onDemandType = document.getElementById("genOnDemandOnDemandType").value;
 
-        // Start with "2" header for On-Demand
         let hexString = "2";
-
-        // Add Index - 1 character
         hexString += dec2hex(index, 1);
-
-        // Add Account (KP id) - 5 characters
         hexString += dec2hex(account, 5);
-
-        // Add Repeater (RMR) - 2 characters
         hexString += dec2hex(repeater, 2);
-
-        // Add request/response indicator (0 for request, 1 for response)
         hexString += requestType;
-
-        // Add On-Demand type from select value
         hexString += onDemandType;
-
-        // Add the remaining static values "30A0D"
         hexString += "30A0D";
 
-        // Display the generated hex string with color formatting
         document.getElementById("generatedOnDemandHex").innerHTML =
             renderOnDemandPreview(hexString);
     } catch (error) {
@@ -1442,7 +1515,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // =============== DISPLAY MODE TOGGLES ===============
-    // Dark mode - load saved preference
     const darkModePreference = localStorage.getItem("darkMode");
     const darkModeToggle = document.getElementById("displayModeToggle");
 
@@ -1453,7 +1525,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     darkModeToggle.addEventListener("change", toggleDarkMode);
 
-    // Color mode toggle (B&W)
     document.getElementById("colorModeToggle").addEventListener("change", function () {
         if (this.checked) {
             document.body.classList.add("no-color");
@@ -1497,6 +1568,59 @@ document.addEventListener("DOMContentLoaded", function () {
             tooltip.style.display = "none";
         }
     });
+
+    // =============== REAL-TIME VALIDATION ===============
+    // Meter fields
+    document.getElementById("genMeterReceiverNumber").addEventListener("input", () => validateField("genMeterReceiverNumber", 0, 15));
+    document.getElementById("genMeterIndex").addEventListener("input", () => validateField("genMeterIndex", 0, 8));
+    document.getElementById("genMeterAccount").addEventListener("input", () => validateField("genMeterAccount", 0, 1048575));
+    document.getElementById("genMeterSignalStrength").addEventListener("input", () => validateField("genMeterSignalStrength", 0, 255));
+    document.getElementById("genMeterRepeater").addEventListener("input", () => validateField("genMeterRepeater", 0, 255));
+    document.getElementById("genMeterYear").addEventListener("input", () => validateField("genMeterYear", 2000, 2099));
+    document.getElementById("genMeterMonth").addEventListener("input", () => validateField("genMeterMonth", 1, 12));
+    document.getElementById("genMeterDay").addEventListener("input", () => validateField("genMeterDay", 1, 31));
+    document.getElementById("genMeterHour").addEventListener("input", () => validateField("genMeterHour", 0, 23));
+
+    // Installation fields
+    document.getElementById("genReceiverNumber").addEventListener("input", () => validateField("genReceiverNumber", 0, 15));
+    document.getElementById("genIndex").addEventListener("input", () => validateField("genIndex", 0, 8));
+    document.getElementById("genAccount").addEventListener("input", () => validateField("genAccount", 0, 1048575));
+    document.getElementById("genSignalStrength").addEventListener("input", () => validateField("genSignalStrength", 0, 255));
+    document.getElementById("genRepeater").addEventListener("input", () => validateField("genRepeater", 0, 255));
+    document.getElementById("genYear").addEventListener("input", () => validateField("genYear", 2000, 2099));
+    document.getElementById("genMonth").addEventListener("input", () => validateField("genMonth", 1, 12));
+    document.getElementById("genDay").addEventListener("input", () => validateField("genDay", 1, 31));
+    document.getElementById("genHour").addEventListener("input", () => validateField("genHour", 0, 23));
+    document.getElementById("genMinute").addEventListener("input", () => validateField("genMinute", 0, 59));
+
+    // Analog fields
+    document.getElementById("genAnalogReceiverNumber").addEventListener("input", () => validateField("genAnalogReceiverNumber", 0, 15));
+    document.getElementById("genAnalogIndex").addEventListener("input", () => validateField("genAnalogIndex", 0, 8));
+    document.getElementById("genAnalogAccount").addEventListener("input", () => validateField("genAnalogAccount", 0, 1048575));
+    document.getElementById("genAnalogSample").addEventListener("input", () => validateField("genAnalogSample", 0, 4095));
+    document.getElementById("genAnalogSignalStrength").addEventListener("input", () => validateField("genAnalogSignalStrength", 0, 255));
+    document.getElementById("genAnalogRepeater").addEventListener("input", () => validateField("genAnalogRepeater", 0, 255));
+    document.getElementById("genAnalogYear").addEventListener("input", () => validateField("genAnalogYear", 2000, 2099));
+    document.getElementById("genAnalogMonth").addEventListener("input", () => validateField("genAnalogMonth", 1, 12));
+    document.getElementById("genAnalogDay").addEventListener("input", () => validateField("genAnalogDay", 1, 31));
+    document.getElementById("genAnalogHour").addEventListener("input", () => validateField("genAnalogHour", 0, 23));
+    document.getElementById("genAnalogMinute").addEventListener("input", () => validateField("genAnalogMinute", 0, 59));
+
+    // Box fields
+    document.getElementById("genBoxAccount").addEventListener("input", () => validateField("genBoxAccount", 0, 1048575));
+    document.getElementById("genBoxIndex").addEventListener("input", () => validateField("genBoxIndex", 0, 8));
+    document.getElementById("genBoxSignalStrength").addEventListener("input", () => validateField("genBoxSignalStrength", 0, 255));
+    document.getElementById("genBoxRepeater").addEventListener("input", () => validateField("genBoxRepeater", 0, 255));
+    document.getElementById("genBoxYear").addEventListener("input", () => validateField("genBoxYear", 2000, 2099));
+    document.getElementById("genBoxMonth").addEventListener("input", () => validateField("genBoxMonth", 1, 12));
+    document.getElementById("genBoxDay").addEventListener("input", () => validateField("genBoxDay", 1, 31));
+    document.getElementById("genBoxHour").addEventListener("input", () => validateField("genBoxHour", 0, 23));
+    document.getElementById("genBoxMinute").addEventListener("input", () => validateField("genBoxMinute", 0, 59));
+
+    // On-Demand fields
+    document.getElementById("genOnDemandIndex").addEventListener("input", () => validateField("genOnDemandIndex", 0, 8));
+    document.getElementById("genOnDemandAccount").addEventListener("input", () => validateField("genOnDemandAccount", 0, 1048575));
+    document.getElementById("genOnDemandRepeater").addEventListener("input", () => validateField("genOnDemandRepeater", 0, 255));
 });
 
 function sendToMeterQueue() {
