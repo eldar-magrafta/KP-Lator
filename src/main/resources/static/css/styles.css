@@ -228,14 +228,15 @@ button:hover {
 /* Copy button with icon */
 .copy-button {
     background-color: var(--success);
-    padding: 16px 25px;
-    border-radius: 24px;
-    font-size: 18px;
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 1.2em;
     box-shadow: var(--shadow-success);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    margin-top: 0;
 }
 
 .copy-button:hover {

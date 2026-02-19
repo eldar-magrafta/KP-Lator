@@ -250,23 +250,16 @@
             <button onclick="resetMeterGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
-                <div style="display: flex; align-items: center; gap: 10px">
-                    <label>Generated Hex String:</label>
+                <label>Generated Hex String:</label>
+                <div id="generatedMeterHex" class="preview"></div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                    <button onclick="sendToMeterQueue()" class="send-button">
+                        Send to Queue "Meter"
+                    </button>
                     <button onclick="copyMeterHexString()" class="copy-button">
                         Copy
                     </button>
                 </div>
-                <div style="
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                margin-top: 15px;
-              ">
-                    <button onclick="sendToMeterQueue()" class="send-button">
-                        Send to Queue "Meter"
-                    </button>
-                </div>
-                <div id="generatedMeterHex" class="preview"></div>
             </div>
         </div>
     </div>
@@ -516,18 +509,16 @@
             <button onclick="resetInstallationGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
-                <div style="display: flex; align-items: center; gap: 10px">
-                    <label>Generated Hex String:</label>
-                    <button onclick="copyInstallationHexString()" class="copy-button">
-                        Copy
-                    </button>
-                </div>
+                <label>Generated Hex String:</label>
+                <div id="generatedInstallationHex" class="preview"></div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
                     <button onclick="sendToInstallationQueue()" class="send-button installation-send-button">
                         Send to Queue "Installation"
                     </button>
+                    <button onclick="copyInstallationHexString()" class="copy-button">
+                        Copy
+                    </button>
                 </div>
-                <div id="generatedInstallationHex" class="preview"></div>
             </div>
         </div>
     </div>
@@ -801,18 +792,16 @@
             <button onclick="resetAnalogGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
-                <div style="display: flex; align-items: center; gap: 10px">
-                    <label>Generated Hex String:</label>
-                    <button onclick="copyAnalogHexString()" class="copy-button">
-                        Copy
-                    </button>
-                </div>
+                <label>Generated Hex String:</label>
+                <div id="generatedAnalogHex" class="preview"></div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
                     <button onclick="sendToAnalogQueue()" class="send-button analog-send-button">
                         Send to Queue "Analog"
                     </button>
+                    <button onclick="copyAnalogHexString()" class="copy-button">
+                        Copy
+                    </button>
                 </div>
-                <div id="generatedAnalogHex" class="preview"></div>
             </div>
         </div>
     </div>
@@ -968,18 +957,16 @@
             <button onclick="resetBoxGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
-                <div style="display: flex; align-items: center; gap: 10px">
-                    <label>Generated Hex String:</label>
-                    <button onclick="copyBoxHexString()" class="copy-button">
-                        Copy
-                    </button>
-                </div>
+                <label>Generated Hex String:</label>
+                <div id="generatedBoxHex" class="preview"></div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
                     <button onclick="sendToBoxQueue()" class="send-button box-send-button">
                         Send to Queue "Box"
                     </button>
+                    <button onclick="copyBoxHexString()" class="copy-button">
+                        Copy
+                    </button>
                 </div>
-                <div id="generatedBoxHex" class="preview"></div>
             </div>
         </div>
     </div>
@@ -1082,13 +1069,13 @@
             <button onclick="resetOnDemandGenerator()" class="reset-button">Reset</button>
 
             <div class="result-section">
-                <div style="display: flex; align-items: center; gap: 10px">
-                    <label>Generated Hex String:</label>
+                <label>Generated Hex String:</label>
+                <div id="generatedOnDemandHex" class="preview"></div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
                     <button onclick="copyOnDemandHexString()" class="copy-button">
                         Copy
                     </button>
                 </div>
-                <div id="generatedOnDemandHex" class="preview"></div>
             </div>
         </div>
     </div>
