@@ -56,8 +56,8 @@ body {
 /* Typography */
 h1 {
     color: var(--text-dark);
-    margin: 0 0 var(--spacing-quadruple) 0;
-    font-size: 2.6em;
+    margin: 0 0 var(--spacing-double) 0;
+    font-size: 2em;
     font-weight: 700;
     letter-spacing: -0.5px;
 }
@@ -65,8 +65,8 @@ h1 {
 label {
     font-weight: 700;
     color: var(--text-label);
-    font-size: 1.6em;
-    margin-bottom: 5px;
+    font-size: 1.1em;
+    margin-bottom: 3px;
     display: block;
 }
 
@@ -95,16 +95,16 @@ label {
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 21px;
-    margin-top: var(--spacing-quadruple);
+    gap: 15px;
+    margin-top: var(--spacing-double);
 }
 
 /* Timestamp grid layout */
 .timestamp {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 21px;
-    margin-top: 21px;
+    gap: 15px;
+    margin-top: 15px;
     margin-bottom: 0;
 }
 
@@ -118,11 +118,11 @@ label {
 input,
 .generator-input {
     width: 100%;
-    padding: var(--spacing-double);
-    margin: var(--spacing-base) 0;
+    padding: 10px 10px;
+    margin: 4px 0;
     border: 2px solid var(--border-light);
-    border-radius: var(--border-radius-md);
-    font-size: 1.8em;
+    border-radius: var(--border-radius-sm);
+    font-size: 1.3em;
     font-weight: normal;
     box-sizing: border-box;
     transition: all 0.3s ease;
@@ -130,7 +130,7 @@ input,
 
 /* Regular input styling */
 input {
-    font-size: 2.1em;
+    font-size: 1.2em;
 }
 
 /* Input focus and hover states */
@@ -149,16 +149,16 @@ input:hover,
 /* Select dropdown styling */
 select.generator-input {
     height: auto;
-    min-height: 56px;
+    min-height: 36px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 20px;
-    padding-right: 40px;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 30px;
     appearance: none;
     cursor: pointer;
     color: var(--text-main);
-    padding: var(--spacing-double);
+    padding: 10px 10px;
     position: relative;
     z-index: 10;
 }
@@ -179,12 +179,12 @@ select.generator-input option:disabled {
 /* =============== BUTTONS =============== */
 /* Default button styles */
 button {
-    padding: var(--spacing-double) var(--spacing-quadruple);
+    padding: 8px 20px;
     border: none;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
-    font-size: 1.75em;
-    margin-top: 21px;
+    font-size: 1.1em;
+    margin-top: 12px;
     font-weight: normal;
     transition: all 0.3s ease;
     background-color: var(--primary);
@@ -228,15 +228,20 @@ button:hover {
 /* Copy button with icon */
 .copy-button {
     background-color: var(--success);
-    padding: 8px 24px;
+    padding: 6px 16px;
     border-radius: 50px;
-    font-size: 1.2em;
+    font-size: 1em;
     box-shadow: var(--shadow-success);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     margin-top: 0;
+}
+
+.copy-button::before {
+    width: 14px;
+    height: 14px;
 }
 
 .copy-button:hover {
@@ -256,12 +261,12 @@ button:hover {
 /* Send button for queues */
 .send-button {
     background-color: var(--purple);
-    margin-top: 5px;
+    margin-top: 0;
     box-shadow: var(--shadow-purple);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .send-button:hover {
@@ -318,13 +323,13 @@ button:hover {
 /* Preview for displaying hex data */
 .preview {
     font-family: "Courier New", monospace;
-    padding: var(--spacing-double);
+    padding: 10px 10px;
     background: var(--bg-lighter);
-    border-radius: var(--border-radius-md);
-    margin: var(--spacing-double) 0;
+    border-radius: var(--border-radius-sm);
+    margin: 8px 0;
     white-space: pre-wrap;
     word-break: break-all;
-    font-size: 1.9em;
+    font-size: 1.2em;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -332,11 +337,11 @@ button:hover {
 /* Value display box */
 .value-box {
     border: 2px solid var(--border-light);
-    border-radius: 14px;
-    padding: 5px;
-    margin-top: 10px;
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin-top: 4px;
     background-color: var(--bg-light);
-    min-height: 50px;
+    min-height: 32px;
     display: flex;
     align-items: center;
     transition: all 0.2s ease;
@@ -351,23 +356,23 @@ button:hover {
 
 /* Value text styling */
 .value {
-    font-size: 1.75em;
+    font-size: 1.1em;
     width: 100%;
     font-weight: normal;
 }
 
 /* Timestamp value boxes */
 .timestamp .value-box {
-    min-height: 40px;
+    min-height: 28px;
     justify-content: center;
 }
 
 /* Result section with generated output */
 .result-section {
-    margin-top: var(--spacing-quadruple);
-    padding: 15px;
+    margin-top: var(--spacing-double);
+    padding: 10px;
     background: var(--bg-light);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-sm);
     border: 1px solid var(--border-light);
 }
 
@@ -484,8 +489,8 @@ input:checked + .slider:before {
 }
 
 .calculations {
-    margin-top: var(--spacing-quadruple);
-    padding-top: var(--spacing-quadruple);
+    margin-top: var(--spacing-double);
+    padding-top: var(--spacing-double);
     border-top: 2px solid var(--border-light);
 }
 
@@ -502,7 +507,7 @@ input:checked + .slider:before {
 #analogHexInput,
 #boxHexInput,
 #onDemandHexInput {
-    font-size: 1.8em;
+    font-size: 1.2em;
     letter-spacing: 0.5px;
 }
 
@@ -528,11 +533,11 @@ input:checked + .slider:before {
     background-color: #d5ac0d;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: 15px;
+    font-size: 12px;
+    margin-top: 8px;
     transition: background-color 0.2s;
     box-shadow: 0 4px 6px -1px rgba(213, 172, 13, 0.3);
 }
@@ -709,11 +714,11 @@ body.dark-mode .hex-tooltip .tooltip-position {
 .reset-button {
     background-color: #ef4444;
     color: white;
-    padding: 8px 20px;
-    border-radius: var(--border-radius-md);
-    font-size: 1.2em;
-    margin-top: 21px;
-    margin-left: 10px;
+    padding: 6px 14px;
+    border-radius: var(--border-radius-sm);
+    font-size: 1em;
+    margin-top: 12px;
+    margin-left: 8px;
     box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
 }
 
