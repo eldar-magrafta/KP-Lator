@@ -75,7 +75,7 @@ label {
 .main-container {
     display: flex;
     gap: var(--spacing-quadruple);
-    height: calc(100vh - 120px);
+    height: calc(100vh - 150px);
 }
 
 /* Card component for each section */
@@ -757,4 +757,44 @@ body.dark-mode .generator-input.invalid {
 
 body.dark-mode .validation-message {
     color: #f87171;
+}
+
+/* =============== FOOTER =============== */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px 20px;
+    background-color: var(--bg-lighter);
+    border-top: 1px solid var(--border-light);
+    text-align: center;
+    z-index: 50;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85em;
+    color: var(--text-label);
+}
+
+.footer-separator {
+    color: var(--border-medium);
+}
+
+.footer-updated {
+    font-weight: 500;
+}
+
+.footer-author {
+    font-style: italic;
+}
+
+/* Dark mode footer */
+body.dark-mode .footer {
+    background-color: #0f172a;
+    border-top-color: var(--border-light);
 }
