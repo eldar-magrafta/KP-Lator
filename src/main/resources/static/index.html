@@ -271,6 +271,100 @@
 <!-- Meter Event (Alarm) -->
 <div id="meterEvent" class="tab-content">
     <div class="main-container">
+        <!-- Meter Event Parser Section -->
+        <div class="card">
+            <h1>Meter Event (Alarm) Parser</h1>
+
+            <div class="input-section">
+                <label for="meterEventHexInput">Hex String Input:</label>
+                <input type="text" id="meterEventHexInput"
+                       value="DC13709570000000000000000000000000000000000000AC0B5134007EA07150C00"/>
+                <div id="meterEventPreview" class="preview"></div>
+                <button onclick="copyMeterEventToGenerator()"
+                        class="copy-to-gen-button copy-to-gen-button-meter">
+                    Copy to Generator →
+                </button>
+            </div>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <div class="value-box">
+                        <div id="meterEventReceiverNumber" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index (Slot):</label>
+                    <div class="value-box">
+                        <div id="meterEventIndex" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #f97316">Type:</label>
+                    <div class="value-box">
+                        <div id="meterEventType" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <div class="value-box">
+                        <div id="meterEventAccount" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #e11d48">Event Code:</label>
+                    <div class="value-box">
+                        <div id="meterEventCodeValue" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <div class="value-box">
+                        <div id="meterEventSignalStrength" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <div class="value-box">
+                        <div id="meterEventRepeater" class="value"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <div class="value-box">
+                        <div id="meterEventParsedYear" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <div class="value-box">
+                        <div id="meterEventParsedMonth" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <div class="value-box">
+                        <div id="meterEventParsedDay" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <div class="value-box">
+                        <div id="meterEventParsedHour" class="value"></div>
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ef4444">Min</label>
+                    <div class="value-box">
+                        <div id="meterEventParsedMinute" class="value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Meter Event Generator Section -->
         <div class="card">
             <h1>Meter Event (Alarm) Generator</h1>
@@ -290,12 +384,39 @@
                     <input type="number" id="genMeterEventIndex" class="generator-input" min="0" max="8" value="3"/>
                 </div>
                 <div>
+                    <label style="color: #f97316">Type:</label>
+                    <select id="genMeterEventType" class="generator-input">
+                        <option value="0" disabled style="color: #999; background-color: #f1f1f1">
+                            Absolute value of the meter
+                        </option>
+                        <option value="1" disabled style="color: #999; background-color: #f1f1f1">
+                            Received signal strength indication
+                        </option>
+                        <option value="3" disabled style="color: #999; background-color: #f1f1f1">
+                            Previous Reading
+                        </option>
+                        <option value="4" disabled style="color: #999; background-color: #f1f1f1">
+                            Analog
+                        </option>
+                        <option value="5" disabled style="color: #999; background-color: #f1f1f1">
+                            Previous Analog Reading
+                        </option>
+                        <option value="6" disabled style="color: #999; background-color: #f1f1f1">
+                            Serial Number of the Meter (Installation)
+                        </option>
+                        <option value="7">Event</option>
+                        <option value="E" disabled style="color: #999; background-color: #f1f1f1">
+                            On-Demand
+                        </option>
+                    </select>
+                </div>
+                <div>
                     <label style="color: #3b82f6">Account (KP id):</label>
                     <input type="number" id="genMeterEventAccount" class="generator-input" min="0" max="1048575"
                            value="38256"/>
                 </div>
                 <div>
-                    <label style="color: #f97316">Event Code:</label>
+                    <label style="color: #e11d48">Event Code:</label>
                     <select id="genMeterEventCode" class="generator-input">
                         <option value="A1">Strong Magnet (A1)</option>
                         <option value="B1">Strong Magnet restore (B1)</option>
