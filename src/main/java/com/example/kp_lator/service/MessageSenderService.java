@@ -11,6 +11,7 @@ public class MessageSenderService {
     private static final String QUEUE_INSTALLATION = "Installation";
     private static final String QUEUE_ANALOG = "Analog";  // Add Analog queue name
     private static final String QUEUE_BOX = "Box";        // Add Box queue name
+    private static final String QUEUE_EVENTS = "Events";  // Meter alarm/event queue (type 7 messages)
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -49,5 +50,17 @@ public class MessageSenderService {
      */
     public void sendMessageToBoxQueue(String message) {
         jmsTemplate.convertAndSend(QUEUE_BOX, message);
+    }
+
+    /**
+     * Sends a message to the meter events (alarm) queue.
+     * Used for meter alarm/event messages (type 7), e.g. Air in Pipe (AC/BC),
+     * Leakage, Reverse Flow, etc. The collector routes the "Events" queue to
+     * its meter-error/event parser.
+     *
+     * @param message The message to send
+     */
+    public void sendMessageToEventsQueue(String message) {
+        jmsTemplate.convertAndSend(QUEUE_EVENTS, message);
     }
 }

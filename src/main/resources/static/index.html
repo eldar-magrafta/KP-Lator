@@ -14,6 +14,9 @@
     <button class="tab-button active" onclick="showTab('meter')">
         Meter Reading
     </button>
+    <button class="tab-button" onclick="showTab('meterEvent')">
+        Meter Event
+    </button>
     <button class="tab-button" onclick="showTab('installation')">
         Installation
     </button>
@@ -265,6 +268,106 @@
     </div>
 </div>
 
+<!-- Meter Event (Alarm) -->
+<div id="meterEvent" class="tab-content">
+    <div class="main-container">
+        <!-- Meter Event Generator Section -->
+        <div class="card">
+            <h1>Meter Event (Alarm) Generator</h1>
+            <p style="opacity:0.8;margin-top:-8px">
+                Generates a type-7 event/alarm message (e.g. Air in Pipe) and sends it to the
+                collector's <strong>"Events"</strong> queue.
+            </p>
+
+            <div class="grid">
+                <div>
+                    <label style="color: #ff00ff">Receiver Number:</label>
+                    <input type="number" id="genMeterEventReceiverNumber" class="generator-input" min="0" max="15"
+                           value="1"/>
+                </div>
+                <div>
+                    <label style="color: #22c55e">Index (Slot):</label>
+                    <input type="number" id="genMeterEventIndex" class="generator-input" min="0" max="8" value="3"/>
+                </div>
+                <div>
+                    <label style="color: #3b82f6">Account (KP id):</label>
+                    <input type="number" id="genMeterEventAccount" class="generator-input" min="0" max="1048575"
+                           value="38256"/>
+                </div>
+                <div>
+                    <label style="color: #f97316">Event Code:</label>
+                    <select id="genMeterEventCode" class="generator-input">
+                        <option value="A1">Strong Magnet (A1)</option>
+                        <option value="B1">Strong Magnet restore (B1)</option>
+                        <option value="A3">Reverse Flow (A3)</option>
+                        <option value="B3">Reverse Flow restore (B3)</option>
+                        <option value="A6">Leakage (A6)</option>
+                        <option value="B6">Leakage restore (B6)</option>
+                        <option value="A7">Tamper (A7)</option>
+                        <option value="B7">Tamper restore (B7)</option>
+                        <option value="A9">Qmax (A9)</option>
+                        <option value="AC" selected>Air in Pipe (AC)</option>
+                        <option value="BC">Air in Pipe restore (BC)</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #d8c724">Signal Strength:</label>
+                    <input type="number" id="genMeterEventSignalStrength" class="generator-input" min="0" max="255"
+                           value="181"/>
+                </div>
+                <div>
+                    <label style="color: #ff00ff">Repeater #:</label>
+                    <input type="number" id="genMeterEventRepeater" class="generator-input" min="0" max="255"
+                           value="19"/>
+                </div>
+            </div>
+
+            <div class="timestamp">
+                <div>
+                    <label style="color: #40ff00">Year</label>
+                    <input type="number" id="genMeterEventYear" class="generator-input" min="2000" max="2099"
+                           value="2026"/>
+                </div>
+                <div>
+                    <label style="color: #0ea5e9">Month</label>
+                    <input type="number" id="genMeterEventMonth" class="generator-input" min="1" max="12" value="7"/>
+                </div>
+                <div>
+                    <label style="color: #ca8a04">Day</label>
+                    <input type="number" id="genMeterEventDay" class="generator-input" min="1" max="31" value="21"/>
+                </div>
+                <div>
+                    <label style="color: #15803d">Hour</label>
+                    <input type="number" id="genMeterEventHour" class="generator-input" min="0" max="23" value="12"/>
+                </div>
+                <div class="minute-container">
+                    <label style="color: #ef4444">Min</label>
+                    <input type="number" id="genMeterEventMinute" class="generator-input" min="0" max="59" value="0"/>
+                    <button onclick="setNearestPastTime('genMeterEvent')" class="now-button">
+                        Now
+                    </button>
+                </div>
+            </div>
+
+            <button onclick="generateMeterEventHexString()">Generate</button>
+            <button onclick="resetMeterEventGenerator()" class="reset-button">Reset</button>
+
+            <div class="result-section">
+                <label>Generated Hex String:</label>
+                <div id="generatedMeterEventHex" class="preview"></div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                    <button onclick="sendToEventsQueue()" class="send-button">
+                        Send to Queue "Events"
+                    </button>
+                    <button onclick="copyMeterEventHexString()" class="copy-button">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Installation -->
 <div id="installation" class="tab-content">
     <div class="main-container">
@@ -461,6 +564,7 @@
                         <option value="1A1D">Modbus ABB AquaMaster</option>
                         <option value="2B0E">Modbus KHRONE IFC300</option>
                         <option value="7A7B">Pulse Meter</option>
+                        <option value="11A5">Diehl Meters</option>
                     </select>
                 </div>
                 <div>

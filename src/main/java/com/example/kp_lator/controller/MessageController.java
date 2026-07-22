@@ -55,4 +55,14 @@ public class MessageController {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
+
+    @PostMapping("/api/queue/events")
+    public ResponseEntity<String> sendEventsMessage(@RequestParam("message") String message) {
+        try {
+            messageSenderService.sendMessageToEventsQueue(message);
+            return ResponseEntity.ok("Meter event message sent successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
 }

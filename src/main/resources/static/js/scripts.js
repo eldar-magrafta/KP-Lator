@@ -369,6 +369,84 @@ function copyMeterHexString() {
     copyToClipboard(hexString, "meter");
 }
 
+// =============== METER EVENT (ALARM) GENERATOR ===============
+// Produces a type-7 event/alarm message in the exact layout the collector's
+// meter-error/event parser expects:
+//   X D C <receiver> <slot> 7 <account(5 hex)> <36 zeros> <eventCode(2)> 000D7X47 <date(14)>
+// The event code (e.g. AC = Air in Pipe) sits at absolute positions [47:49].
+function generateMeterEventHexString() {
+    try {
+        const receiver = document.getElementById("genMeterEventReceiverNumber").value;
+        const slot = document.getElementById("genMeterEventIndex").value;
+        const account = document.getElementById("genMeterEventAccount").value;
+        const code = document.getElementById("genMeterEventCode").value;
+        const signalStrength = document.getElementById("genMeterEventSignalStrength").value;
+        const repeater = document.getElementById("genMeterEventRepeater").value;
+        const year = document.getElementById("genMeterEventYear").value;
+        const month = document.getElementById("genMeterEventMonth").value;
+        const day = document.getElementById("genMeterEventDay").value;
+        const hour = document.getElementById("genMeterEventHour").value;
+        const minute = document.getElementById("genMeterEventMinute").value;
+
+        if (
+            !validateInput(receiver, 0, 15) ||
+            !validateInput(slot, 0, 8) ||
+            !validateInput(account, 0, 1048575) ||
+            !validateInput(year, 2000, 2099) ||
+            !validateInput(month, 1, 12) ||
+            !validateInput(day, 1, 31) ||
+            !validateInput(hour, 0, 23) ||
+            !validateInput(minute, 0, 59)
+        ) {
+            alert("Please check the input values.");
+            return;
+        }
+
+        // Header: X (STX placeholder) + D C + receiver(1) + slot(1) + type '7'
+        let hexString = "DC";
+        hexString += dec2hex(receiver, 1);
+        hexString += dec2hex(slot, 1);
+        hexString += "7"; // EVENT type
+        hexString += dec2hex(account, 5); // account (KP id) as 5 hex chars
+        hexString += "0".repeat(36); // reserved/data
+        hexString += code; // event code at [47:49] (e.g. AC / BC)
+        hexString += "000D7X47"; // channel + signal + repeater + ETX/checksum placeholder
+        // Time tag (year 4 + month/day/hour/minute, 2 each) — matches simulator layout
+        hexString += dec2hex(year, 4);
+        hexString += dec2hex(month, 2);
+        hexString += dec2hex(day, 2);
+        hexString += dec2hex(hour, 2);
+        hexString += dec2hex(minute, 2);
+
+        document.getElementById("generatedMeterEventHex").textContent = hexString;
+    } catch (error) {
+        console.error("Error generating meter event hex string:", error);
+        alert("Error generating hex string. Please check your input values.");
+    }
+}
+
+function copyMeterEventHexString() {
+    const hexString = document
+        .getElementById("generatedMeterEventHex")
+        .textContent.trim();
+    copyToClipboard(hexString, "meterEvent");
+}
+
+function resetMeterEventGenerator() {
+    document.getElementById("genMeterEventReceiverNumber").value = "1";
+    document.getElementById("genMeterEventIndex").value = "3";
+    document.getElementById("genMeterEventAccount").value = "38256";
+    document.getElementById("genMeterEventCode").value = "AC";
+    document.getElementById("genMeterEventSignalStrength").value = "181";
+    document.getElementById("genMeterEventRepeater").value = "19";
+    document.getElementById("genMeterEventYear").value = "2026";
+    document.getElementById("genMeterEventMonth").value = "7";
+    document.getElementById("genMeterEventDay").value = "21";
+    document.getElementById("genMeterEventHour").value = "12";
+    document.getElementById("genMeterEventMinute").value = "0";
+    document.getElementById("generatedMeterEventHex").textContent = "";
+}
+
 function copyMeterToGenerator() {
     // Copy all parsed values to generator fields
     document.getElementById("genMeterReceiverNumber").value =
@@ -550,6 +628,7 @@ function getManufacturer(manufacturerId) {
         "1A1D": "Modbus ABB AquaMaster",
         "2B0E": "Modbus KHRONE IFC300",
         "7A7B": "Pulse Meter",
+        "11A5": "Diehl Meters",
     };
     return manufacturers[manufacturerId] || "Unknown";
 }
@@ -565,6 +644,7 @@ function getManufacturerHex(manufacturerText) {
         "Modbus ABB AquaMaster": "1A1D",
         "Modbus KHRONE IFC300": "2B0E",
         "Pulse Meter": "7A7B",
+        "Diehl Meters": "11A5",
     };
     return manufacturers[manufacturerText] || "4CAE";
 }
@@ -1648,6 +1728,39 @@ function sendToMeterQueue() {
             sendButton.textContent = 'Send to ActiveMQ Queue "meters"';
         }, 2000); // Reset button after 2 seconds
     });
+}
+
+function sendToEventsQueue() {
+    const hexString = document
+        .getElementById("generatedMeterEventHex")
+        .textContent.trim();
+    if (!hexString) {
+        alert("Please generate a hex string first.");
+        return;
+    }
+
+    const sendButton = document.querySelector("#meterEvent .send-button");
+    sendButton.textContent = "Sending...";
+
+    fetch("/api/queue/events", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "message=" + encodeURIComponent(hexString),
+    })
+        .then((response) => response.text())
+        .then((result) => {
+            console.log("Meter event message sent:", result);
+        })
+        .catch((error) => {
+            console.error("Error sending meter event message:", error);
+        })
+        .finally(() => {
+            setTimeout(() => {
+                sendButton.textContent = 'Send to Queue "Events"';
+            }, 2000);
+        });
 }
 
 function sendToInstallationQueue() {
