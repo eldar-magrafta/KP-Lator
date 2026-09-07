@@ -337,7 +337,7 @@ function generateMeterHexString() {
             return;
         }
 
-        let hexString = "DC";
+        let hexString = "□DC";
         hexString += dec2hex(receiverNumber, 1);
         hexString += dec2hex(index, 1);
         hexString += type;
@@ -347,7 +347,7 @@ function generateMeterHexString() {
         hexString += "0";
         hexString += dec2hex(signalStrength, 2);
         hexString += dec2hex(repeater, 2);
-        hexString += "40";
+        hexString += "□DC";
         hexString += dec2hex(year, 4);
         hexString += dec2hex(month, 2);
         hexString += dec2hex(day, 2);
@@ -555,7 +555,7 @@ function generateMeterEventHexString() {
         }
 
         // Header: X (STX placeholder) + D C + receiver(1) + slot(1) + type '7'
-        let hexString = "DC";
+        let hexString = "□DC";
         hexString += dec2hex(receiver, 1);
         hexString += dec2hex(slot, 1);
         hexString += type; // EVENT type (7)
@@ -568,7 +568,7 @@ function generateMeterEventHexString() {
         hexString += "0"; // channel
         hexString += dec2hex(signalStrength, 2); // signal strength (chars 51-52)
         hexString += dec2hex(repeater, 2); // repeater number (chars 53-54)
-        hexString += "40"; // ETX + checksum placeholder
+        hexString += "□DC"; // ETX + checksum placeholder
         // Time tag (year 4 + month/day/hour/minute, 2 each) — matches simulator layout
         hexString += dec2hex(year, 4);
         hexString += dec2hex(month, 2);
@@ -961,7 +961,7 @@ function generateInstallationHexString() {
         const hour = document.getElementById("genHour").value;
         const minute = document.getElementById("genMinute").value;
 
-        let hexString = "DC";
+        let hexString = "□DC";
         hexString += dec2hex(receiverNumber, 1);
         hexString += dec2hex(index, 1);
         hexString += type;
@@ -974,7 +974,7 @@ function generateInstallationHexString() {
         hexString += "0";
         hexString += dec2hex(signalStrength, 2);
         hexString += dec2hex(repeater, 2);
-        hexString += "40";
+        hexString += "□DC";
         hexString += dec2hex(year, 4);
         hexString += dec2hex(month, 2);
         hexString += dec2hex(day, 2);
@@ -1162,7 +1162,7 @@ function generateAnalogHexString() {
         const hour = document.getElementById("genAnalogHour").value;
         const minute = document.getElementById("genAnalogMinute").value;
 
-        let hexString = "DC";
+        let hexString = "□DC";
         hexString += dec2hex(receiverNumber, 1);
         hexString += dec2hex(index, 1);
         hexString += type;
@@ -1486,7 +1486,7 @@ function generateBoxHexString() {
         const hour = document.getElementById("genBoxHour").value;
         const minute = document.getElementById("genBoxMinute").value;
 
-        let hexString = "DC1";
+        let hexString = "□DC1";
         hexString += dec2hex(index, 1);
         hexString += "7"; //dummy type
         hexString += dec2hex(account, 5);
@@ -1508,7 +1508,7 @@ function generateBoxHexString() {
         hexString += "0";
         hexString += dec2hex(signalStrength, 2);
         hexString += dec2hex(repeater, 2);
-        hexString += "34"; // ETX + Checksum
+        hexString += "□34"; // ETX + Checksum
         hexString += dec2hex(year, 4);
         hexString += dec2hex(month, 2);
         hexString += dec2hex(day, 2);
