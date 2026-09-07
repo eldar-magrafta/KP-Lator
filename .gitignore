@@ -39,4 +39,7 @@ build/
 # Prevent accidental commits of sensitive files
 secrets.*
 *.secret
+
+# Playwright MCP
+.playwright-mcp/
 run-kplator.bat
